@@ -47,9 +47,12 @@
 请根据本地系统下载安装[postgresql](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)数据库，并运行`psql -h localhost`检查安装情况。
 
 
-## 安装
+## 在本地机部署方法
 
-在终端（MacOS或Linux）中执行以下代码
+在终端（MacOS或Linux）中执行以下代码。
+
+注意：在执行下面代码之前，请确认数据库系统（PostgreSQL)已经在本地安装好，用命令 postgres -D /usr/local/var/postgres/ 启动数据库系统，并且用命令：createdb courseselect_development 创建选课系统应用数据库。在bundle install 时，一定是链接外网，若
+是MacOS, 还要执行命令：sudo xcodebuild -license， 输入agree授权Apple xcodebuild 软件进行编译。
 
 ```
 $ git clone https://github.com/PENGZhaoqing/CourseSelect
@@ -60,9 +63,9 @@ $ rake db:seed
 $ rails s 
 ```
 
-在浏览器中输入`localhost:3000`访问主页
+## 安装正常后的使用方法
 
-## 使用
+在浏览器中输入`localhost:3000`访问应用系统主页
 
 1.学生登陆：
 
@@ -86,7 +89,7 @@ $ rails s
 账号中数字都可以替换成2,3...等等
 
 
-## Heroku云部署
+## 在 Heroku 云端部署方法
 
 项目可直接在Heroku上免费部署
 
@@ -103,7 +106,7 @@ $ rails s
 6.运行部署，详情[请戳这里](https://devcenter.heroku.com/articles/getting-started-with-rails4#rails-asset-pipeline)
 
 
-## 本地测试
+## 在本地测试方法
 
 本项目包含了部分的测试（integration/fixture/model test），测试文件位于/test目录下。一键运行所有测试使用`rake test`：
 
