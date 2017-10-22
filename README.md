@@ -108,7 +108,8 @@ $ rails s
 
 ## 在本地测试方法
 
-本项目包含了部分的测试（integration/fixture/model test），测试文件位于/test目录下。一键运行所有测试使用`rake test`：
+本项目包含了部分的测试（integration/fixture/model test），测试文件位于/test目录下。
+在一键运行所有测试使用`rake test`命令之前，一定检测是否用命令 postgres -D /usr/local/var/postgres/ 启动数据库系统，并且执行过命令：createdb courseselect_test 创建选课系统应用测试数据库。
 
 ```
 PENG-MacBook-Pro:IMS_sample PENG-mac$ rake test
