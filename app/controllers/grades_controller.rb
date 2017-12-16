@@ -6,6 +6,7 @@ class GradesController < ApplicationController
     @grade=Grade.find_by_id(params[:id])
     if @grade.update_attributes!(:grade => params[:grade][:grade])
       flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
+      UserMailer.user_mailer(@grade).deliver
     else
       flash={:danger => "上传失败.请重试"}
     end
@@ -15,7 +16,7 @@ class GradesController < ApplicationController
   def index
     if teacher_logged_in?
       @course=Course.find_by_id(params[:course_id])
-      @grades=@course.grades
+      @grades=@course.grades.order('user_id')
     elsif student_logged_in?
       @grades=current_user.grades
     else
