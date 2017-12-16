@@ -35,6 +35,11 @@ class CoursesController < ApplicationController
     redirect_to courses_path, flash: flash
   end
 
+  ###zm添加###查看课程详情
+  def detail
+    @course=Course.find_by_id(params[:id])
+  end
+
   def open
     @course=Course.find_by_id(params[:id])
     @course.update_attributes(open: true)
