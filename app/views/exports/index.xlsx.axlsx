@@ -11,19 +11,20 @@ wb.styles do |style|
   wb.add_worksheet(name: "Exports") do |sheet|
     if @type=='students_list'
       sheet.add_row ["课程名称","学号", "姓名","专业","培养单位"]
-    @exports.each do |grade|
-      sheet.add_row [grade.course.name,grade.user.num, grade.user.name, grade.user.major,grade.user.department]
-               
+    @exports.each do |grade|  
+      #将学号后面加空格转为文本，以防excel中科学计数法显示
+      student_num="#{grade.user.num} "  
+      sheet.add_row [grade.course.name,student_num, grade.user.name, grade.user.major,grade.user.department]               
       sheet.rows.last.cells.first.u = :single
     end  
     elsif @type=='grades_list'
       sheet.add_row ["学号", "姓名","专业","培养单位","课程名称","成绩"]
     @exports.each do |grade|
-      sheet.add_row [grade.user.num, grade.user.name, grade.user.major,grade.user.department,grade.course.name,grade.grade]               
+      #将学号后面加空格转为文本，以防excel中科学计数法显示
+      student_num="#{grade.user.num} "
+      sheet.add_row [student_num, grade.user.name, grade.user.major,grade.user.department,grade.course.name,grade.grade]               
       sheet.rows.last.cells.first.u = :single
     end  
-    end
-
-  	  
+    end  
   end
 end
