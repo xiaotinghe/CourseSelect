@@ -40,6 +40,49 @@ class CoursesController < ApplicationController
     @course=Course.find_by_id(params[:id])
   end
 
+  ###zm添加###生成课程表
+  def schedule
+    #老师和学生都可以查看课程表
+    schedule_courses=current_user.teaching_courses if teacher_logged_in?
+    schedule_courses=current_user.courses if student_logged_in?
+
+    @course_hash=Hash.new
+    #初始化hash
+    initial_course=Course.new    
+    i=0
+    for i in 0..11        
+        @course_hash["周一#{i}"]=initial_course
+        @course_hash["周二#{i}"]=initial_course
+        @course_hash["周三#{i}"]=initial_course
+        @course_hash["周四#{i}"]=initial_course
+        @course_hash["周五#{i}"]=initial_course
+        @course_hash["周六#{i}"]=initial_course
+        @course_hash["周日#{i}"]=initial_course      
+        i=i+1
+    end 
+
+    #给hash赋值，key：周五9   value:课程对象
+    schedule_courses.each do |course|
+      #数据库中的上课时间需要规范=>英文符号  周五(9-11)
+      time=course.course_time
+      timelength=time.length
+      #提取上课时间是星期几=>   周五
+      course_day=time[0..1]
+      #获取分割线-的位置
+      split_index=time.index("-")
+      #开始的上课节数  9
+      begin_class=time[3..split_index-1]
+      #结束的上课节数 11
+      end_class=time[split_index+1..timelength-2]
+      #从开始节数到结束节数，给hash赋值 周五9 周五10 周五11
+      j=begin_class
+      for j in begin_class..end_class do
+        hash_key=course_day+j
+        @course_hash[hash_key]=course
+      end
+    end  
+  end
+
   def open
     @course=Course.find_by_id(params[:id])
     @course.update_attributes(open: true)
