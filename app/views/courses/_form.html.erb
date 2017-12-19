@@ -16,7 +16,7 @@
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <%= f.text_field :course_type, class: 'form-control', placeholder: "输入课程属性" %>
+          <%= f.select(:course_type, ['公共必修课','公共选修课','专业核心课','专业普及课','专业研讨课'], {}, {:class => 'form-control'}) %>
         </div>
       </div>
     </div>

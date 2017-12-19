@@ -13,7 +13,6 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#CourseCollapse"><span class="glyphicon glyphicon-user"></span>
               选修课程</a>
         <% end %>
-
       </h4>
     </div>
 
@@ -33,8 +32,13 @@
               <% end %>
             </li>
             <li class="list-group-item">
-              <%= link_to schedule_course_path(current_user.id) do %>
+              <%= link_to schedule_course_path(schID: current_user.id,id:current_user.id) do %>
                   <span class="glyphicon glyphicon-chevron-right"></span> 查看课程表
+              <% end %>
+            </li>
+            <li class="list-group-item">
+              <%= link_to mystudent_course_path(current_user) do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 学生选课单
               <% end %>
             </li>
         <% end %>
@@ -53,7 +57,7 @@
               <% end %>
             </li>
             <li class="list-group-item">
-              <%= link_to schedule_course_path(current_user.id) do %>
+              <%= link_to schedule_course_path(schID: current_user.id,id:current_user.id) do %>
                   <span class="glyphicon glyphicon-chevron-right"></span> 查看课程表
               <% end %>
             </li>

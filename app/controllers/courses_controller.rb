@@ -43,8 +43,16 @@ class CoursesController < ApplicationController
   ###zm添加###生成课程表
   def schedule
     #老师和学生都可以查看课程表
-    schedule_courses=current_user.teaching_courses if teacher_logged_in?
-    schedule_courses=current_user.courses if student_logged_in?
+    currentID=params[:id]
+    selectedID=params[:schID]
+    if currentID==selectedID
+      #说明是自己查看自己的课表
+      schedule_courses=current_user.teaching_courses if teacher_logged_in?
+      schedule_courses=current_user.courses if student_logged_in?
+    else
+      #说明是老师查看学生的课表
+      schedule_courses=User.find_by_id(params[:schID]).courses
+    end
 
     @course_hash=Hash.new
     #初始化hash
@@ -81,6 +89,17 @@ class CoursesController < ApplicationController
         @course_hash[hash_key]=course
       end
     end  
+  end
+
+  #zm添加##导师查看自己学生的选课单
+  def stuCourseList
+    @selectedStudent=User.find_by_id(params[:stu_id])
+    @stu_courses=@selectedStudent.courses
+  end
+
+   #zm添加##导师查看自己的学生
+  def mystudent
+    @mystudent=User.where(:supervisor => params[:id])
   end
 
   def open

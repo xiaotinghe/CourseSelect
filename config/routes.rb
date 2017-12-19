@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       get :close
       get :detail
       get :schedule
+      get :stuCourseList
+       get :mystudent
     end
     collection do
       get :list
@@ -34,6 +36,8 @@ Rails.application.routes.draw do
   resources :grades, only: [:index, :update]
   resources :users
   resources :exports, only: [:index]
+
+
 
   get 'sessions/login' => 'sessions#new'
   post 'sessions/login' => 'sessions#create'
