@@ -13,7 +13,13 @@
 
             <div class="form-group">
               <div class='col-sm-3 control-label' >课程序号：</div>
-              <div class="col-sm-9"><%= @course.course_code%></div>
+              <div class="col-sm-9">
+                <% if "#{@course.course_code}".length==0 %>
+                    等待管理员审核
+                <% else%>
+                    <%= @course.course_code %></td>
+                <% end %>
+              </div>
             </div>
             <br>
 

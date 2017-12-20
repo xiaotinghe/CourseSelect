@@ -13,6 +13,9 @@
         </div>
 
         <div class="panel-body">
+           <%if @stu_courses.length==0%>
+              <div class="panel-title">该同学还未选课</div>
+          <%else%>
           <table class="table table-responsive table-condensed table-hover">
             <thead>
             <tr>
@@ -42,7 +45,7 @@
             <% end %>
             </tbody>
           </table>
-
+          <% end %>
         </div>
       </div>
     </div>
