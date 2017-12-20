@@ -155,8 +155,8 @@ class CoursesController < ApplicationController
   #-------------------------for both teachers and students----------------------
 
   def index
-    @course=current_user.teaching_courses if teacher_logged_in?
-    @course=current_user.courses if student_logged_in?
+    @course=current_user.teaching_courses.order('id') if teacher_logged_in?
+    @course=current_user.courses.order('id') if student_logged_in?
   end
 
 
