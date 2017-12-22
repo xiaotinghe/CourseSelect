@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     end
     collection do
       get :list
+      get :search_json
+      get :showcourse
     end
   end
 
