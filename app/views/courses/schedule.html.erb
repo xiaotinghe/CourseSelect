@@ -33,7 +33,7 @@
 
                 <%if "#{@course_hash["周一#{i}"].name}".length!=0%>
                 <td>
-                  <p><%=link_to @course_hash["周一#{i}"].name, detail_course_url(id:@course_hash["周一#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周一#{i}"].name, detail_course_url(id:@course_hash["周一#{i}"].id),:name=>"周一#{i}"%></p>
                   <p><%=@course_hash["周一#{i}"].course_week%>,&nbsp;<%=@course_hash["周一#{i}"].class_room%></p>
                 </td>
                 <% else %>
@@ -42,7 +42,7 @@
 
                 <%if "#{@course_hash["周二#{i}"].name}".length!=0%>
                 <td>
-                  <p><%=link_to @course_hash["周二#{i}"].name, detail_course_url(id:@course_hash["周二#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周二#{i}"].name, detail_course_url(id:@course_hash["周二#{i}"].id),:name=>"周二#{i}"%></p>
                   <p><%=@course_hash["周二#{i}"].course_week%>,&nbsp;<%=@course_hash["周二#{i}"].class_room%></p>
                 </td>
                 <% else %>
@@ -51,7 +51,7 @@
 
                 <%if "#{@course_hash["周三#{i}"].name}".length!=0%>
                 <td>
-                  <p><%=link_to @course_hash["周三#{i}"].name, detail_course_url(id:@course_hash["周三#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周三#{i}"].name, detail_course_url(id:@course_hash["周三#{i}"].id),:name=>"周三#{i}"%></p>
                   <p><%=@course_hash["周三#{i}"].course_week%>,&nbsp;<%=@course_hash["周三#{i}"].class_room%></p>
                 </td>
                 <% else %>
@@ -60,7 +60,7 @@
 
                 <%if "#{@course_hash["周四#{i}"].name}".length!=0%>
                 <td>
-                  <p><%=link_to @course_hash["周四#{i}"].name, detail_course_url(id:@course_hash["周四#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周四#{i}"].name, detail_course_url(id:@course_hash["周四#{i}"].id),:name=>"周四#{i}"%></p>
                   <p><%=@course_hash["周四#{i}"].course_week%>,&nbsp;<%=@course_hash["周四#{i}"].class_room%></p>
                 </td>
                 <% else %>
@@ -69,7 +69,7 @@
 
                 <%if "#{@course_hash["周五#{i}"].name}".length!=0%>
                 <td>
-                  <p><%=link_to @course_hash["周五#{i}"].name, detail_course_url(id:@course_hash["周五#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周五#{i}"].name, detail_course_url(id:@course_hash["周五#{i}"].id),:name=>"周五#{i}"%></p>
                   <p><%=@course_hash["周五#{i}"].course_week%>,&nbsp;<%=@course_hash["周五#{i}"].class_room%></p>
                 </td>
                 <% else %>
@@ -78,7 +78,7 @@
 
                 <%if "#{@course_hash["周六#{i}"].name}".length!=0%>
                 <td style="width: 80px">
-                  <p><%=link_to @course_hash["周六#{i}"].name, detail_course_url(id:@course_hash["周六#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周六#{i}"].name, detail_course_url(id:@course_hash["周六#{i}"].id),:name=>"周六#{i}"%></p>
                   <p><%=@course_hash["周六#{i}"].course_week%>,&nbsp;<%=@course_hash["周六#{i}"].class_room%></p>
                 </td>
                 <% else %>
@@ -87,7 +87,7 @@
 
                 <%if "#{@course_hash["周日#{i}"].name}".length!=0%>
                 <td style="width: 80px">
-                  <p><%=link_to @course_hash["周日#{i}"].name, detail_course_url(id:@course_hash["周日#{i}"].id)%></p>
+                  <p><%=link_to @course_hash["周日#{i}"].name, detail_course_url(id:@course_hash["周日#{i}"].id),:name=>"周日#{i}"%></p>
                   <p><%=@course_hash["周日#{i}"].course_week%>,&nbsp;<%=@course_hash["周日#{i}"].class_room%></p>
                 </td>
                 <% else %>

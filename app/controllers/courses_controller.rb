@@ -97,7 +97,7 @@ class CoursesController < ApplicationController
     @stu_courses=@selectedStudent.courses
   end
 
-   #zm添加##导师查看自己的学生
+   #zm添加##导师查看自己学生的选课列表
   def mystudent
     @mystudent=User.where(:supervisor => params[:id])
   end
