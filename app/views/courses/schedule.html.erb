@@ -48,7 +48,7 @@
                 <% else %>
                   <td></td>
                 <% end %>
-
+ 
                 <%if "#{@course_hash["周三#{i}"].name}".length!=0%>
                 <td>
                   <p><%=link_to @course_hash["周三#{i}"].name, detail_course_url(id:@course_hash["周三#{i}"].id),:name=>"周三#{i}"%></p>
