@@ -137,6 +137,18 @@ class CoursesController < ApplicationController
     @course=tmp
   end
 
+#pan添加学期课表，学生和老师都可以看#
+  def showcourse
+   @course=Course.order('created_at DESC')
+ end
+
+#pan添加多条件搜索课表#
+  def search_json
+    @courses=Course.search_courses(params, current_user)
+    render json: @courses.as_json(:include=>:teacher)
+  end
+########
+
   def select
     @course=Course.find_by_id(params[:id])
     current_user.courses<<@course

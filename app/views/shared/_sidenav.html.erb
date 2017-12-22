@@ -18,7 +18,12 @@
 
     <div id="CourseCollapse" class="panel-collapse collapse <%= "in" if ["courses"].include?(params[:controller]) %>">
       <ul class="list-group">
-
+        <li class="list-group-item">
+               <%= link_to showcourse_courses_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 学期课表
+                  <span class="label label-info pull-right"><%=(Course.order('created_at DESC')).length %></span>
+               <% end %>
+        </li>
         <% if teacher_logged_in? %>
             <li class="list-group-item">
               <%= link_to courses_path do %>
@@ -49,7 +54,7 @@
                   <span class="glyphicon glyphicon-chevron-right"></span> 选修课程
                   <span class="label label-info pull-right"><%= (Course.where(:open => true)-current_user.courses).length %></span>
               <% end %>
-            </li>
+            
             <li class="list-group-item">
               <%= link_to courses_path do %>
                   <span class="glyphicon glyphicon-chevron-right"></span> 已选课程
