@@ -68,8 +68,10 @@
                </tbody>
               <% end %>
               <% if student_logged_in? %>
+              <%= link_to '导出成绩单', grades_path(format: "xls"),class:"btn btn-primary" %>
                <thead>
                  <tr>
+                   <th>课程编号</th>
                    <th>课程名称</th>
                    <th>课程学分</th>
                    <th>授课教师</th>
@@ -79,6 +81,7 @@
                <tbody>
                   <% @grades.each do |grade| %>
                    <tr>
+                       <td><%= grade.course.course_code %></td>
                        <td><%= grade.course.name %></td>
                        <td><%= grade.course.credit.split('/')[1] %></td>
                        <td><%= grade.course.teacher.name %></td>

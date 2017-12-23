@@ -28,4 +28,25 @@ class Course < ActiveRecord::Base
 	 
    end
 
+  ##liupan增加 导出student选课单
+   def self.to_csv(options = {})
+       CSV.generate(options) do |csv|
+	       column_names=["课程编号","课程名称","课时/学分","开课周次","星期节次","教室","授课方式","考试方式","主讲教师"]
+           csv << column_names
+		   all.each do |course|
+			  tmp=[]
+			  tmp<<course.course_code
+			  tmp<<course.name
+			  tmp<<course.credit
+			  tmp<<course.course_week
+			  tmp<<course.course_time
+			  tmp<<course.class_room
+			  tmp<<course.teaching_type
+			  tmp<<course.exam_type
+			  tmp<<course.teacher.name
+              csv <<tmp
+          end
+       end
+	end
+
 end

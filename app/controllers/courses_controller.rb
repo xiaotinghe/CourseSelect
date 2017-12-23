@@ -124,14 +124,14 @@ class CoursesController < ApplicationController
 
   #-------------------------for students----------------------
 
+##liupan修改选修课程界面
   def list
     #-------QiaoCode--------
-    @course=Course.where(:open=>true)
-    @course=@course-current_user.courses
+   @course=Course.where(:open=>true)
     tmp=[]
     @course.each do |course|
-      if course.open==true
-        tmp<<course
+      if course.open==true 
+       tmp<<course
       end
     end
     @course=tmp
@@ -139,8 +139,8 @@ class CoursesController < ApplicationController
 
 #pan添加学期课表，学生和老师都可以看#
   def showcourse
-   @course=Course.order('created_at DESC')
- end
+    @course=Course.order('created_at DESC')
+  end
 
 #pan添加多条件搜索课表#
   def search_json
@@ -149,12 +149,41 @@ class CoursesController < ApplicationController
   end
 ########
 
+##liupan 处理选课冲突
   def select
-    @course=Course.find_by_id(params[:id])
-    current_user.courses<<@course
-    flash={:suceess => "成功选择课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
-  end
+      @course=Course.find_by_id(params[:id])
+      count=0
+      current_user.courses.each do |selected_course|
+           tmp1=(@course.course_time.split("(")[1]).split("-")[0].to_i
+           tmp2=((@course.course_time.split("(")[1]).split(")")[0]).split("-")[1].to_i
+           smp1=(selected_course.course_time.split("(")[1]).split("-")[0].to_i
+           smp2=((selected_course.course_time.split("(")[1]).split(")")[0]).split("-")[1].to_i
+
+           week_begin=@course.course_week.tr("第","").split("-")[0].to_i
+           week_end=@course.course_week.tr("周","").split("-")[1].to_i
+           selected_week_begin=selected_course.course_week.tr("第","").split("-")[0].to_i
+           selected_week_end=selected_course.course_week.tr("周","").split("-")[1].to_i
+     
+           if selected_course.name==@course.name 
+              count=count+1
+           end
+
+           if ((((week_begin>=selected_week_begin)&&(week_begin<=selected_week_end))||((selected_week_begin>=week_begin)&& (selected_week_begin.to_i<=week_end)))&&((@course.course_time.split("(")[0])==(selected_course.course_time.split("(")[0]))&&(((tmp1>=smp1) &&(tmp1<=smp2))||((smp1>=tmp1)&&(smp1<=tmp2))))
+               count=count+1
+           end
+     
+       end 
+       
+       if count==0
+          current_user.courses<<@course
+          flash={:suceess => "成功选择课程: #{@course.name}"}
+       else
+          flash={:error=>"选课冲突，请重新选择"}
+       end
+    
+       redirect_to courses_path, flash: flash
+    
+   end
 
   def quit
     @course=Course.find_by_id(params[:id])
@@ -166,9 +195,32 @@ class CoursesController < ApplicationController
 
   #-------------------------for both teachers and students----------------------
 
+##liupan修改student"已选课程"界面，统计学分
   def index
     @course=current_user.teaching_courses.order('id') if teacher_logged_in?
     @course=current_user.courses.order('id') if student_logged_in?
+
+    if student_logged_in?
+       credit=0
+       credit_coursetype=0
+       @course.each do |course|
+           credit=credit+course.credit.split("/")[1].to_i
+             if course.course_type=="专业核心课"
+                credit_coursetype=credit_coursetype+course.credit.split("/")[1].to_i
+             end
+           end
+           @totalcredit=credit
+           @typecredit=credit_coursetype
+           
+           ##导出已选课程
+           @courses = current_user.courses 
+           respond_to do |format|
+              format.html
+              format.csv { send_data @courses.to_csv }
+              format.xls { send_data @courses.to_csv(col_sep: "\t") }
+           end
+    end
+
   end
 
 

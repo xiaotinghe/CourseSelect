@@ -22,7 +22,20 @@ class GradesController < ApplicationController
     else
       redirect_to root_path, flash: {:warning=>"请先登陆"}
     end
+     
+    ##liupan导出成绩单
+    if student_logged_in?
+      @grades=current_user.grades 
+        respond_to do |format|
+          format.html
+          format.csv { send_data @grades.to_csv }
+          format.xls { send_data @grades.to_csv(col_sep: "\t") }
+        end
+
+    end
+
   end
+  
 
 
   private
