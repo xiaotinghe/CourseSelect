@@ -68,7 +68,8 @@
                </tbody>
               <% end %>
               <% if student_logged_in? %>
-              <%= link_to '导出成绩单', grades_path(format: "xls"),class:"btn btn-primary" %>
+               <%= link_to '导出成绩单', exports_path(user_id:current_user.id,type:'mygrade_list',format: :xlsx), :class => "btn btn-success"%> 
+             
                <thead>
                  <tr>
                    <th>课程编号</th>
@@ -95,6 +96,13 @@
               </tbody>
              <%end%>
             </table>
+            <div style="text-align:center">
+              <% if @courseTotal==0 %>
+                   <h4 style="color:#0000CD">目前还未有成绩记录！</h>
+              <%else%>
+                   <h4 style="color:#0000CD;line-height:30px">目前<%=current_user.name %>同学可查看<%=@courseTotal%>门课成绩，其中已经通过 <%=@passCourse%>  门课程，课程通过率为<%=@passRate%>%</h>
+              <%end%> 
+            </div>
           <% end %>
         </div>
       </div>

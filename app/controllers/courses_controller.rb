@@ -141,7 +141,7 @@ class CoursesController < ApplicationController
     @stu_course_list=current_user.grades.order('id') if student_logged_in?
   end
 
-#pan添加学期课表，学生和老师都可以看#
+#liupan添加学期课表，学生和老师都可以看#
   def showcourse
     @course=Course.order('created_at DESC')
   end
@@ -218,13 +218,6 @@ class CoursesController < ApplicationController
            @totalcredit=credit
            @typecredit=credit_coursetype
            
-           ##导出已选课程
-           @courses = current_user.courses 
-           respond_to do |format|
-              format.html
-              format.csv { send_data @courses.to_csv }
-              format.xls { send_data @courses.to_csv(col_sep: "\t") }
-           end
     end
 
   end
