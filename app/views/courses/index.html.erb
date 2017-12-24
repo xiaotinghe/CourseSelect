@@ -63,7 +63,9 @@
                       <% end %>
                       <td><%= link_to "删除", course_path(course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
                   <% elsif student_logged_in? %>
+                    <% if !@stu_course_list[0].stu_confirm%>
                       <td><%= link_to "删除", quit_course_path(course), class: 'btn-sm btn-danger',:data => {confirm: '确定要删除此课程?'} %></td>
+                    <% end %>        
                   <% end %>
                 </tr>
             <% end %>
@@ -73,7 +75,21 @@
           <% if student_logged_in? %>
                 <span style="color:#0000CD"> 总共选修课程: <%=@totalcredit%> 学分</span> &nbsp&nbsp&nbsp
                 <span style="color:#0000CD"> 其中专业核心课: <%=@typecredit%> 学分</span> 
+
+            <% if @stu_course_list[0].stu_confirm%>
+                <div>您已确认选课单，不能再变更课程</div>
+                <% if @stu_course_list[0].teacher_confirm%>
+                  <div>导师已确认选课单</div>
+                <% else %>
+                  <div>等待导师确认选课单</div>
+                <% end %>  
+            <% else %>
+              <div><%= link_to '确认选课单', studentConfirm_grade_path(id:current_user.id,stu_id:current_user.id), :class => "btn btn-info" %>（提示：确认选课单后，将无法再自行变更课程，请谨慎操作）
+              </div>    
+            <% end %>
+
           <% end %>
+
         </div>
       </div>
     </div>

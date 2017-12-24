@@ -95,6 +95,8 @@ class CoursesController < ApplicationController
   def stuCourseList
     @selectedStudent=User.find_by_id(params[:stu_id])
     @stu_courses=@selectedStudent.courses
+    ##待审核的选课单
+    @stu_course_list=@selectedStudent.grades.order('id')
   end
 
    #zm添加##导师查看自己学生的选课列表
@@ -135,6 +137,8 @@ class CoursesController < ApplicationController
       end
     end
     @course=tmp
+    ##zm修改##该同学的选课单
+    @stu_course_list=current_user.grades.order('id') if student_logged_in?
   end
 
 #pan添加学期课表，学生和老师都可以看#
@@ -199,6 +203,8 @@ class CoursesController < ApplicationController
   def index
     @course=current_user.teaching_courses.order('id') if teacher_logged_in?
     @course=current_user.courses.order('id') if student_logged_in?
+    ##zm修改##待确认的选课单
+    @stu_course_list=current_user.grades.order('id') if student_logged_in?
 
     if student_logged_in?
        credit=0

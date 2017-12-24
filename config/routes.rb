@@ -39,7 +39,12 @@ Rails.application.routes.draw do
   resources :users
   resources :exports, only: [:index]
 
-
+  resources :grades do
+    member do
+      get :studentConfirm
+      get :teacherConfirm
+    end
+  end
 
   get 'sessions/login' => 'sessions#new'
   post 'sessions/login' => 'sessions#create'
