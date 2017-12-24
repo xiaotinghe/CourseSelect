@@ -32,9 +32,10 @@ class GradesController < ApplicationController
         @grades.each do |grade|
           if grade.grade.to_f >0 
               courseTotal=courseTotal+1
-          elsif grade.grade.to_f >=60
+          end
+          if grade.grade.to_f >=60
               passCourse=passCourse+1
-           end
+          end
        end
        @courseTotal=courseTotal
        if courseTotal==0
