@@ -49,17 +49,17 @@
 
           <% if teacher_logged_in? %>
             <% if @stu_course_list[0].teacher_confirm%>
-                您已审核该同学选课单 
+                <div class="alert alert-success">您已审核该同学选课单</div> 
             <% else %>
               <% if @stu_course_list[0].stu_confirm%>
-                <div>该同学已确认选课单，请您审核</div>
+                <div class="alert alert-success">该同学已确认选课单，请您审核</div>
                 <%= link_to '审核选课单', teacherConfirm_grade_path(stu_id:@selectedStudent.id), :class => "btn btn-info"%>
               <% else %>
-                <div>该同学还未确认选课单，等待确认后再审核</div>
+                <div class="alert alert-success">该同学还未确认选课单，等待确认后再审核</div>
               <% end %>
             <% end %>       
           <% end %>
-          
+
         </div>
       </div>
     </div>
