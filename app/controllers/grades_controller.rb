@@ -1,7 +1,6 @@
 class GradesController < ApplicationController
 
   before_action :teacher_logged_in, only: [:update]
-
   def update
     @grade=Grade.find_by_id(params[:id])
     if @grade.update_attributes!(:grade => params[:grade][:grade])
@@ -22,17 +21,30 @@ class GradesController < ApplicationController
     else
       redirect_to root_path, flash: {:warning=>"请先登陆"}
     end
-     
-    ##liupan导出成绩单
-    if student_logged_in?
-      @grades=current_user.grades 
-        respond_to do |format|
-          format.html
-          format.csv { send_data @grades.to_csv }
-          format.xls { send_data @grades.to_csv(col_sep: "\t") }
-        end
 
-    end
+
+    ##liupan 加学生成绩页面统计通过课程数和课程通过率
+
+    if student_logged_in?
+        @grades=current_user.grades 
+        courseTotal=0
+        passCourse=0
+        @grades.each do |grade|
+          if grade.grade.to_f >0 
+              courseTotal=courseTotal+1
+          elsif grade.grade.to_f >=60
+              passCourse=passCourse+1
+           end
+       end
+       @courseTotal=courseTotal
+       if courseTotal==0
+           @passCourse=passCourse
+           @passRate=0
+       else
+           @passCourse=passCourse
+           @passRate=((passCourse/courseTotal)*100).to_f
+      end
+   end
 
   end
   

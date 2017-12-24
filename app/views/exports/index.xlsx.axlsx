@@ -24,7 +24,20 @@ wb.styles do |style|
       student_num="#{grade.user.num} "
       sheet.add_row [student_num, grade.user.name, grade.user.major,grade.user.department,grade.course.name,grade.grade]               
       sheet.rows.last.cells.first.u = :single
-    end  
+    end 
+
+    ##liupan 加student页面导出
+    elsif @type=='mycourse_list'
+        sheet.add_row ["课程编号","课程名称","课程类型","课时/学分","考试方式","上课时间","上课地点","主讲教师"]
+        @exports.each do |course|
+           sheet.add_row [course.course_code,course.name,course.course_type,course.credit,course.exam_type,course.course_time ,course.class_room,course.teacher.name]               
+       end  
+    
+    elsif @type=='mygrade_list'
+         sheet.add_row ["课程编号", "课程名称","课程学分","授课教师","分数"]
+         @exports.each do |grade|
+           sheet.add_row [ grade.course.course_code,  grade.course.name,grade.course.credit.split('/')[1],grade.course.teacher.name,grade.grade]               
+        end  
     end  
   end
 end

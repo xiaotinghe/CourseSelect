@@ -3,5 +3,4 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 
-##liupan add excel配置
-Mime::Type.register "application/xls", :xls
+
