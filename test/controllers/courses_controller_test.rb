@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class CoursesControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def setup
     @test_course = Course.find_by_id(1)#计算机体系结构
     @test_teacher=User.find_by_id(2)#胡伟武老师
@@ -42,4 +39,6 @@ class CoursesControllerTest < ActionController::TestCase
     test_h3_content="兆廷婷的选课列表"
     assert_select "h3", test_h3_content
   end
+  
+
 end
