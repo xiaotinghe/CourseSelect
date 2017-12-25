@@ -41,7 +41,7 @@
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
 
-                  <% if @stu_course_list[0].stu_confirm%>
+                  <% if @stu_course_list.length!=0&&@stu_course_list[0].stu_confirm%>
                     <td>已确认选课单，无法再次变更课程</td>
                   <% else %>
                     <td><%= link_to "加入课程", select_course_path(course), class: 'btn-sm btn-info' %></td>
