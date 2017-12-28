@@ -31,6 +31,9 @@
               <th>课程名称</th>
               <th>课程类型</th>
               <th>课时/学分</th>
+              <%if student_logged_in? %>
+             <th>学位课</th>
+              <%end%>
               <th>考试方式</th>
               <th>上课时间</th>
               <th>上课地点</th>
@@ -49,6 +52,17 @@
                   <td><%= link_to course.name, detail_course_url(course) %></td>
                   <td><%= course.course_type %></td>
                   <td><%= course.credit %></td>
+                  <% if student_logged_in? %>
+                    <td><% current_user.grades.each do |grade|%>
+                          <%if grade.course.id==course.id%>
+                            <% if grade.degree_course==true %>是
+                            <% end %>
+                            <% if grade.degree_course==false%>否
+                            <% end %>
+                          <%end%>
+                        <%end%>
+                    </td>
+                 <%end%>
                   <td><%= course.exam_type %></td>
                   <td><%= course.course_time %></td>
                   <td><%= course.class_room %></td>

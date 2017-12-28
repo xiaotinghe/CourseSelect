@@ -76,6 +76,7 @@
                         <th>课程编号</th>
                         <th>课程名称</th>
                         <th>课程学分</th>
+                        <th>学位课</th>
                         <th>授课教师</th>
                         <th>分数</th>
                      </tr>
@@ -86,6 +87,12 @@
                            <td><%= grade.course.course_code %></td>
                            <td><%= grade.course.name %></td>
                            <td><%= grade.course.credit.split('/')[1] %></td>
+                           <td>
+                                <% if grade.degree_course==true %>是
+                                <%end%>
+                                <%  if grade.degree_course==false%>否
+                                <% end %>
+                           </td>
                            <td><%= grade.course.teacher.name %></td>
                            <% if grade.grade.to_i< 60 %>
                                <td style="color:red"><%= grade.grade %></td>

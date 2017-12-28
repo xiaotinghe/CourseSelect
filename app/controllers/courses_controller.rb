@@ -156,8 +156,17 @@ class CoursesController < ApplicationController
 ##liupan 处理选课冲突
   def select
       @course=Course.find_by_id(params[:id])
-      count=0
-      current_user.courses.each do |selected_course|
+
+      ##
+      @degree_course=params["degreeCourse"]
+      if( @degree_course=="请选择")
+        flash={:error=>"请选择选择学位课属性"}
+        redirect_to list_courses_path, flash: flash
+
+      else
+      ##
+        count=0
+        current_user.courses.each do |selected_course|
            tmp1=(@course.course_time.split("(")[1]).split("-")[0].to_i
            tmp2=((@course.course_time.split("(")[1]).split(")")[0]).split("-")[1].to_i
            smp1=(selected_course.course_time.split("(")[1]).split("-")[0].to_i
@@ -176,17 +185,34 @@ class CoursesController < ApplicationController
                count=count+1
            end
      
-       end 
+        end 
        
-       if count==0
+        if count==0
           current_user.courses<<@course
+
+          ##liuapn 增加学位课属性判断
+          current_user.grades.each do |grade|
+             if grade.course.id==@course.id
+              @grade=grade
+             end
+          end
+
+          @grade.course=@course
+          if @degree_course=="是"
+              @grade.degree_course=true
+          else
+              @grade.degree_course=false
+          end
+          current_user.grades<<@grade
+          
+          ##
           flash={:suceess => "成功选择课程: #{@course.name}"}
-       else
+        else
           flash={:error=>"选课冲突，请重新选择"}
-       end
+        end
     
        redirect_to courses_path, flash: flash
-    
+     end
    end
 
   def quit
