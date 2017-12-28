@@ -237,9 +237,13 @@ class CoursesController < ApplicationController
        credit_coursetype=0
        @course.each do |course|
            credit=credit+course.credit.split("/")[1].to_i
-             if course.course_type=="专业核心课"
-                credit_coursetype=credit_coursetype+course.credit.split("/")[1].to_i
-             end
+            current_user.grades.each do |grade|
+               if grade.course.id==course.id
+                     if grade.degree_course==true
+                          credit_coursetype=credit_coursetype+course.credit.split("/")[1].to_i                 
+                     end
+                end
+            end
            end
            @totalcredit=credit
            @typecredit=credit_coursetype
