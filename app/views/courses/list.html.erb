@@ -49,7 +49,7 @@
                         <%= form_tag select_course_path(course), method: :post do  %>
                            <div class="field">
                                 <%= select_tag :degreeCourse, options_for_select(["请选择","是","否"], params[:degreeCourse])%> &nbsp&nbsp
-                                <button class="btn btn-default">添加<span class="glyphicon glyphicon-search"></span></button>
+                                <button class="btn btn-default">添加<span class="glyphicon glyphicon-plus"></span></button>
                            </div>
                         <% end %>
                   </td>
