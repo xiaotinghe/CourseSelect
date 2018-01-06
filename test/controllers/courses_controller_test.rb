@@ -5,6 +5,10 @@ class CoursesControllerTest < ActionController::TestCase
     @test_course = Course.find_by_id(1)#计算机体系结构
     @test_teacher=User.find_by_id(2)#胡伟武老师
     @test_student=User.find_by_id(36)#"兆廷婷"学生
+
+    @test_coursename=Course.find_by_name("高级软件工程")
+    @test_coursetype=Course.find_by_course_type("专业核心课")
+    @test_courseteacher=User.find_by_id(4)##罗铁坚老师
   end
   
   test "创建新课程" do
@@ -55,6 +59,13 @@ class CoursesControllerTest < ActionController::TestCase
     get :stuCourseList, stu_id: @test_student.id,id:@test_teacher.id
     assert_response :success
     test_h3_content="兆廷婷的选课列表"
+    assert_select "h3", test_h3_content
+  end
+
+   test "输入条件查询课程" do
+    get :showcourse, name: @test_coursename,course_type: @test_coursetype,user_id: @test_courseteacher.id
+    assert_response :success
+    test_h3_content="学期课表"
     assert_select "h3", test_h3_content
   end
   
