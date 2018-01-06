@@ -6,6 +6,24 @@ class CoursesControllerTest < ActionController::TestCase
     @test_teacher=User.find_by_id(2)#胡伟武老师
     @test_student=User.find_by_id(36)#"兆廷婷"学生
   end
+  
+  test "创建新课程" do
+    course_params={"name"=>"计算机体系结构-2",
+      "course_type"=>"专业核心课",
+      "teaching_type"=>"讲授",
+      "exam_type"=>"闭卷",
+      "credit"=>"60/3.0",
+      "limit_num"=>"100",
+      "class_room"=>"待分配",
+      "course_time"=>"周五(9-11)",
+      "course_week"=>"第2-21周",
+      "course_code"=>""
+   } 
+    post :create, "course"=> course_params
+    assert_redirected_to(:controller =>"courses",:action =>"index")
+    test_result_content='新课程申请成功'
+    assert_equal(test_result_content, flash[:success])    
+  end
 
   test "按照id查看课程" do
     assert_equal(@test_course.name, "计算机体系结构")
@@ -18,7 +36,7 @@ class CoursesControllerTest < ActionController::TestCase
     assert_select "h3", test_h3_content
   end
 
-  test "老师查看学生的课程表" do
+  test "查看学生的课程表" do
     get :schedule, id: @test_teacher.id,schID: @test_student.id
     assert_response :success
     assert_select "[name='周一9']", @test_course.name
@@ -29,7 +47,7 @@ class CoursesControllerTest < ActionController::TestCase
   test "导师查看学生的选课列表" do
     get :mystudent, id: @test_teacher.id
     assert_response :success
-    test_h3_content="我的学生(5名)"
+    test_h3_content="我的学生(7名)"
     assert_select "h3", test_h3_content
   end
 

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :grades do
     member do
       get :studentConfirm
+      get :studentCancel
       get :teacherConfirm
     end
   end

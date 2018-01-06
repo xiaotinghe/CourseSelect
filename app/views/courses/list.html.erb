@@ -42,8 +42,10 @@
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
             
-                  <% if @stu_course_list.length!=0&&@stu_course_list[0].stu_confirm%>
-                    <td>已确认选课单，无法再次变更课程</td>
+                  <% if @stu_course_list.length!=0&&@stu_course_list[0].teacher_confirm%>
+                    <td>导师已审核选课单，无法自行变更课程</td>
+                  <% elsif @stu_course_list.length!=0&&@stu_course_list[0].stu_confirm%>
+                    <td>已确认选课,请取消确认再变更课程</td>
                   <% else %>
                   <td colspan=2>
                         <%= form_tag select_course_path(course), method: :post do  %>

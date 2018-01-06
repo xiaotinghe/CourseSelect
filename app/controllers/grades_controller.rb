@@ -59,6 +59,16 @@ class GradesController < ApplicationController
       flash={:danger => "确认选课单失败"}
     end   
   end
+  ##zm添加##学生取消确认选课单
+  def studentCancel
+    condition="user_id="+params[:stu_id]
+    result = Grade.where(:user_id=>params[:stu_id]).update_all("stu_confirm = false")
+    if result
+      redirect_to courses_path, flash: {:success => "已经取消确认"}
+    else
+      flash={:danger => "取消确认失败"}
+    end   
+  end
   ##zm添加##导师审核选课单
   def teacherConfirm
     condition="user_id="+params[:stu_id]

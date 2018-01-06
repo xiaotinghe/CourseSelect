@@ -19,7 +19,8 @@ class GradesControllerTest < ActionController::TestCase
 
   test "导师审核选课单" do
     get :teacherConfirm, id: @test_grade_teacher.id,  stu_id:@test_grade_student.id
-    assert_redirected_to(:controller => "courses", :action => "stuCourseList",:stu_id=>@test_grade_student.id)
+    assert_redirected_to(:controller => "courses", :action => "stuCourseList",
+      :stu_id=>@test_grade_student.id)
     test_result_content='已经审核该同学的选课单'
     assert_equal( test_result_content, flash[:success]) 
   end

@@ -93,15 +93,16 @@
 
             <% if @stu_course_list.length!=0%>
               <% if @stu_course_list.length!=0&&@stu_course_list[0].stu_confirm%>
-                <div class="alert alert-success">您已确认选课单，不能再变更课程
+                <div class="alert alert-success">您已确认选课单
                 <% if @stu_course_list[0].teacher_confirm%>
-                  <div>导师已确认选课单</div>
+                  <div>导师已审核选课单</div>
                 <% else %>
-                  <div>等待导师确认选课单</div>
+                  <div>等待导师审核选课单，导师审核后将无法自行变更选课</div>
+                  <%= link_to '取消确认', studentCancel_grade_path(id:current_user.id,stu_id:current_user.id), :class => "btn btn-info" %>
                 <% end %> 
                 </div> 
               <% else %>
-                <div class="alert alert-warning"><%= link_to '确认选课单', studentConfirm_grade_path(id:current_user.id,stu_id:current_user.id), :class => "btn btn-info" %>（提示：确认选课单后，将无法再自行变更课程，请谨慎操作）
+                <div class="alert alert-warning"><%= link_to '确认选课单', studentConfirm_grade_path(id:current_user.id,stu_id:current_user.id), :class => "btn btn-info" %>（提示：确认选课单，导师审核后，将无法再自行变更课程，请谨慎操作）
                 </div>    
               <% end %>
             <% end %>
