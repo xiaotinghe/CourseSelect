@@ -39,7 +39,7 @@ class UsersController < ApplicationController
         end
     end
     def new
-    puts Rails.cache.read(params[:uid])
+    @res =  Rails.cache.read(params[:uid])
         @user=User.new
     end
     def create
