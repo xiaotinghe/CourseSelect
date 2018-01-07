@@ -34,7 +34,7 @@
                     $('#checkAlert').text('上传成功，正在跳转……');
                     $('#checkAlert').show();
                     setTimeout( function(){
-                        $(location).attr('href', '/users/new?uuid=<%= @uuid %>');
+                        $(location).attr('href', '/users/new?uid=<%= @uuid %>');
                     }, 1000);
 
                 }
