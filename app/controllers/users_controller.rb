@@ -15,9 +15,7 @@ class UsersController < ApplicationController
         cache = ActiveSupport::Cache::MemoryStore.new
         cache.write(params[:uuid] + '_img', params[:base64])
         base64 = params[:base64].gsub("data:image/jpeg;base64,", "")
-        token = u'24.0472f5b2823bda4b9a3fed3fa6d4b6d0.2592000.1515502474.282335-10508030'
-        token = token.force_encoding('UTF-8')
-        token = token.encode('UTF-8') 
+        token = '24.0472f5b2823bda4b9a3fed3fa6d4b6d0.2592000.1515502474.282335-10508030'
         uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general?access_token=' + token)
            
         req = Net::HTTP::Post.new(uri)
@@ -27,9 +25,9 @@ class UsersController < ApplicationController
         end
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
-            render :json => {:base64 => "Response #{res.code} #{res.message}: #{res.body}"}.to_json  
+            render :json => {:base64 => "Response #{res.code} #{res.message}: #{res.body}"}.to_json.gsub(/\\u([0-9a-z]{4})/){|s| [$1.to_i(16)].pack("U")}
         else
-            render :json => {:base64 => res.value}.to_json  
+            render :json => {:base64 => res.value}.to_json.gsub(/\\u([0-9a-z]{4})/){|s| [$1.to_i(16)].pack("U")}
         end
     end
     def new
