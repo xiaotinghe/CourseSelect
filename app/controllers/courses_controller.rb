@@ -3,7 +3,6 @@ class CoursesController < ApplicationController
   before_action :student_logged_in, only: [:select, :quit, :list]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update, :open, :close]#add open by qiao
   before_action :logged_in, only: :index
-  before_action :admin_logged_in, only: [:new, :create, :edit, :destroy, :update, :open, :close]
   #-------------------------for teachers----------------------
 
   def new
@@ -269,7 +268,7 @@ class CoursesController < ApplicationController
 
   # Confirms a teacher logged-in user.
   def teacher_logged_in
-    unless (teacher_logged_in or admin_logged_in)?
+    if not (teacher_logged_in || admin_logged_in)
       redirect_to root_url, flash: {danger: '请登陆'}
     end
   end
