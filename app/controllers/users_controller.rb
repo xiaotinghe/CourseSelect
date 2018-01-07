@@ -49,7 +49,7 @@ class UsersController < ApplicationController
            puts "x 是 1"
         end  
     end 
-    @res =  obj
+    
         @user=User.new
     end
     def create
