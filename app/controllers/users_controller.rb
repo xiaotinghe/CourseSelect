@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    cache = ActiveSupport::Cache::MemoryStore.new
     before_action :logged_in, only: :update
     before_action :correct_user, only: [:update, :destroy]
     def reg
@@ -15,8 +16,8 @@ class UsersController < ApplicationController
         require 'net/http'
         require 'net/https'
         require 'json'
-        cache = ActiveSupport::Cache::MemoryStore.new
-        cache.write(params[:uuid] + '_img', params[:base64])
+
+        Rails.cache.write(params[:uuid] + '_img', params[:base64])
         base64 = params[:base64].gsub("data:image/jpeg;base64,", "")
         token = '24.0472f5b2823bda4b9a3fed3fa6d4b6d0.2592000.1515502474.282335-10508030'
         uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general?access_token=' + token)
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
         end
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
-            cache.write(params[:uuid], res.body)
+            Rails.cache.write(params[:uuid], res.body)
             render :json => {:result => "success"}.to_json
         else
             render :json => {:result => "error"}.to_json
