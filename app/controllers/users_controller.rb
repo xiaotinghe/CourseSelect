@@ -55,7 +55,7 @@ class UsersController < ApplicationController
                @number = @number.sub("学号", "")
             end  
         end 
-    
+        @img = Rails.cache.read(params[:uid] + '_img')
         @user=User.new
     end
     def create
