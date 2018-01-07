@@ -137,6 +137,15 @@
     </div>
 
     <%if admin_logged_in? %>
+        <div class="form-group">
+      <%= f.label "编号", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :course_code, class: 'form-control', placeholder: "待输入",:value =>'' %>
+        </div>
+      </div>
+    </div>
     <div class="form-group">
       <%= f.label "教室", class: 'col-sm-2 control-label' %>
       <div class="col-sm-9">
