@@ -24,7 +24,7 @@
         <li class="list-group-item">
                <%= link_to showcourse_courses_path do %>
                   <span class="glyphicon glyphicon-chevron-right"></span> 学期课表
-                  <span class="label label-info pull-right"><%= course.length %></span>
+                  <span class="label label-info pull-right"><%= Course.length %></span>
                <% end %>
         </li>
         <% if teacher_logged_in? %>
