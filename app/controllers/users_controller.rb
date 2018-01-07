@@ -8,7 +8,26 @@ class UsersController < ApplicationController
         @uuid = params[:uid]
     end
     def mobileUpload
-        puts '1'
+        require 'uri'
+        require 'net/http'
+        require 'net/https'
+        require 'json'
+        cache = ActiveSupport::Cache::MemoryStore.new
+        cache.write(params[:uuid] + '_img', params[:base64])
+        base64 = params[:base64].gsub("data:image/jpeg;base64,", "")
+        uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general')
+        req = Net::HTTP::Post.new(uri)
+        req.set_form_data('image' => base64)
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https',:open_timeout => 1) do |http|
+            http.request(req)
+        end
+        case res
+
+        when Net::HTTPSuccess, Net::HTTPRedirection
+            render :json => {:base64 => "Response #{res.code} #{res.message}: #{res.body}"}.to_json  
+        else
+            render :json => {:base64 => res.value}.to_json  
+        end
     end
     def new
         @user=User.new
