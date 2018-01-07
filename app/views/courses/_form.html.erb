@@ -136,11 +136,34 @@
       </div>
     </div>
 
-
+    <%if admin_logged_in? %>
+    <div class="form-group">
+      <%= f.label "教室", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :class_room, class: 'form-control', placeholder: "待分配" ,:value =>'待分配' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label "限选人数", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :limit_num, class: 'form-control', placeholder: "待输入",:value =>'100' %>
+        </div>
+      </div>
+    </div>
+    <%= f.text_field :credit ,id:"credit_obj",style:"display:none"%>
+    <%= f.text_field :course_time ,id:"course_time_obj",style:"display:none"%>
+    <%else%>
     <%= f.text_field :credit ,id:"credit_obj",style:"display:none"%>
     <%= f.text_field :course_time ,id:"course_time_obj",style:"display:none"%>
     <%= f.text_field :class_room ,:value =>'待分配',style:"display:none"%>
     <%= f.text_field :limit_num,:value =>'100',style:"display:none" %>
+    <%end%>
+
 
     <script type="text/javascript">
       /////////////上课时间
