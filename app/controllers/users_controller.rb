@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         @uuid = params[:uid]
     end
     def mobileUpload
-render :json => {:base64 => "Response"}.to_json
+        render :json => {:base64 => "Response"}.to_json
     end
     def new
         @user=User.new
