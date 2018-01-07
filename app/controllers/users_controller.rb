@@ -42,7 +42,8 @@ class UsersController < ApplicationController
     obj = JSON.parse(Rails.cache.read(params[:uid]).force_encoding('UTF-8'))
     for i in obj['words_result'] do  
         if i['words'].include? '姓名'
-           @res = '姓名'
+           i['words']["姓名："]=''
+           @res = i['words']
         elsif i['words'].include? '单位'
            puts "x 是 1"
         elsif i['words'].include? '学号'
