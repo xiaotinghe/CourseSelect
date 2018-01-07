@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       collection do
         get :reg
         get :mobile
+        get :checked
       end
   end
   resources :exports, only: [:index]

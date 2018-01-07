@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     def mobile
         @uuid = params[:uid]
     end
+    def checked
+        if cache.read(params[:uid])
+            render 'success'
+        end
+    end
     def mobileUpload
         require 'uri'
         require 'net/http'
