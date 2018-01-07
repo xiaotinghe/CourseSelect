@@ -39,22 +39,22 @@ class UsersController < ApplicationController
         end
     end
     def new
-    obj = JSON.parse(Rails.cache.read(params[:uid]).force_encoding('UTF-8'))
-    for i in obj['words_result'] do  
-        if i['words'].include? '姓名'
-           @res['name'] = i['words'].sub("姓名：", "")
-           @res['name'] = i['words'].sub("姓名:", "")
-           @res['name'] = i['words'].sub("姓名", "")
-        elsif i['words'].include? '单位'
-           @res['department'] = i['words'].sub("单位：", "")
-           @res['department'] = i['words'].sub("单位:", "")
-           @res['department'] = i['words'].sub("单位", "")
-        elsif i['words'].include? '学号'
-           @res['number'] = i['words'].sub("学号：", "")
-           @res['number'] = i['words'].sub("学号:", "")
-           @res['number'] = i['words'].sub("学号", "")
-        end  
-    end 
+        obj = JSON.parse(Rails.cache.read(params[:uid]).force_encoding('UTF-8'))
+        for i in obj['words_result'] do  
+            if i['words'].include? '姓名'
+               @name = i['words'].sub("姓名：", "")
+               @name = i['words'].sub("姓名:", "")
+               @name = i['words'].sub("姓名", "")
+            elsif i['words'].include? '单位'
+               @department = i['words'].sub("单位：", "")
+               @department = i['words'].sub("单位:", "")
+               @department = i['words'].sub("单位", "")
+            elsif i['words'].include? '学号'
+               @number = i['words'].sub("学号：", "")
+               @number = i['words'].sub("学号:", "")
+               @number = i['words'].sub("学号", "")
+            end  
+        end 
     
         @user=User.new
     end
