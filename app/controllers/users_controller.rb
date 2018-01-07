@@ -8,9 +8,8 @@ class UsersController < ApplicationController
         @uuid = params[:uid]
     end
     def checked
-        if cache.read(params[:uid])
-            render 'success'
-        end
+        render params[:uid]
+
     end
     def mobileUpload
         require 'uri'
