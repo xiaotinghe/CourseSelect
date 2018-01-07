@@ -49,11 +49,10 @@
                 'uuid': '<%= @uuid %>'
             },
             dataType: 'json',
-            timeout: 50000,
+            timeout: 10000,
             success: function(data){
                 console.log(data);
              },
-            complete:function() {},
             error: function(xhr, type){
                 alert(type);
             }
