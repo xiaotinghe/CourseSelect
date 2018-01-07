@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         @uuid = params[:uid]
     end
     def checked
-        render Rails.cache.read(params[:uid])
+        render :json => {:result => Rails.cache.read(params[:uid])}.to_json 
     end
     def mobileUpload
         require 'uri'
