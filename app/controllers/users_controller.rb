@@ -43,16 +43,16 @@ class UsersController < ApplicationController
         for i in obj['words_result'] do  
             if i['words'].include? '姓名'
                @name = i['words'].sub("姓名：", "")
-               @name = i['words'].sub("姓名:", "")
-               @name = i['words'].sub("姓名", "")
+               @name = @name.sub("姓名:", "")
+               @name = @name.sub("姓名", "")
             elsif i['words'].include? '单位'
                @department = i['words'].sub("单位：", "")
-               @department = i['words'].sub("单位:", "")
-               @department = i['words'].sub("单位", "")
+               @department = @department.sub("单位:", "")
+               @department = @department.sub("单位", "")
             elsif i['words'].include? '学号'
                @number = i['words'].sub("学号：", "")
-               @number = i['words'].sub("学号:", "")
-               @number = i['words'].sub("学号", "")
+               @number = @number.sub("学号:", "")
+               @number = @number.sub("学号", "")
             end  
         end 
     
