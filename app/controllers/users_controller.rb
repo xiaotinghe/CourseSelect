@@ -22,6 +22,8 @@ class UsersController < ApplicationController
             http.request(req)
         end
         case res
+        puts "#{JSON.parse res.body}"
+  puts "http request complete."
         when Net::HTTPSuccess, Net::HTTPRedirection
             render :json => {:base64 => "Response #{res.code} #{res.message}: #{res.body}"}.to_json  
         else
