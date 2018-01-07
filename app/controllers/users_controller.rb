@@ -39,7 +39,7 @@ class UsersController < ApplicationController
         end
     end
     def new
-    @res =  Rails.cache.read(params[:uid])
+    @res =  Rails.cache.read(params[:uid]).force_encoding('UTF-8')
         @user=User.new
     end
     def create
