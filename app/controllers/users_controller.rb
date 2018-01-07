@@ -12,8 +12,7 @@ class UsersController < ApplicationController
         require 'net/http'
         require 'net/https'
         require 'json'
-        cache = ActiveSupport::Cache::MemoryStore.new
-        cache.write(params[:uuid] + '_img', params[:base64])
+
         base64 = params[:base64].gsub("data:image/jpeg;base64,", "")
         uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general')
         req = Net::HTTP::Post.new(uri)
