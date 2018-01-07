@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         end
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
-            cache.write(params[:uuid], res.body.force_encoding('UTF-8'))
+            cache.write(params[:uuid], res.body)
             render :json => {:result => "success"}.to_json
         else
             render :json => {:result => "error"}.to_json
