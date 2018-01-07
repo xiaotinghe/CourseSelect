@@ -36,7 +36,14 @@ Rails.application.routes.draw do
   end
 
   resources :grades, only: [:index, :update]
-  resources :users
+  post 'users/mobileUpload' => 'users#mobileUpload'
+  get 'users/mobileUpload' => 'users#mobileUpload'
+  resources :users do
+      collection do
+        get :reg
+        get :mobile
+      end
+  end
   resources :exports, only: [:index]
 
   resources :grades do
