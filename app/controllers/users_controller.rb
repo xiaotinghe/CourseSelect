@@ -39,7 +39,8 @@ class UsersController < ApplicationController
         end
     end
     def new
-    @res =  Rails.cache.read(params[:uid]).force_encoding('UTF-8')
+    obj = JSON.parse(Rails.cache.read(params[:uid]).force_encoding('UTF-8'))
+    @res =  obj
         @user=User.new
     end
     def create
