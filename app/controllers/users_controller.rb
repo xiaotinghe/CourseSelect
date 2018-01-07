@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         end
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
-            render :json => {:base64 => "Response #{res.code} #{res.message}: #{res.body}"}.to_json.gsub(/\\u([0-9a-z]{4})/){|s| [$1.to_i(16)].pack("U")}
+            render :json => {:base64 => "Response #{res.code.force_encoding('UTF-8')} #{res.body.force_encoding('UTF-8')}: #{res.body.force_encoding('UTF-8')}"}.to_json.gsub(/\\u([0-9a-z]{4})/){|s| [$1.to_i(16)].pack("U")}
         else
             render :json => {:base64 => res.value}.to_json.gsub(/\\u([0-9a-z]{4})/){|s| [$1.to_i(16)].pack("U")}
         end
