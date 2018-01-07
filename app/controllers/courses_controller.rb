@@ -232,7 +232,7 @@ class CoursesController < ApplicationController
 ##liupan修改student"已选课程"界面，统计学分
   def index
     @course=current_user.teaching_courses.order('id') if teacher_logged_in?
-    @course=current_user.teaching_courses.order('id') if teacher_logged_in?
+    @course=current_user.teaching_courses.order('id') if admin_logged_in?
     @course=current_user.courses.order('id') if student_logged_in?
     ##zm修改##待确认的选课单
     @stu_course_list=current_user.grades.order('id') if student_logged_in?
