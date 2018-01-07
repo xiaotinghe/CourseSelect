@@ -13,6 +13,8 @@
           <% end %>
           <% if student_logged_in? %><h3 class="panel-title">已选课程</h3>
           <% end %>
+          <% if admin_logged_in? %><h3 class="panel-title">所有课程</h3>
+          <% end %>
         </div>
 
         <div class="panel-body">
@@ -20,6 +22,8 @@
             <% if teacher_logged_in? %><h3 class="panel-title">您未开设课程</h3>
             <% end %>
             <% if student_logged_in? %><h3 class="panel-title">尚未选课</h3>
+            <% end %>
+            <% if admin_logged_in? %><h3 class="panel-title">暂无课程</h3>
             <% end %>
           <%else%>
           <% if student_logged_in? %> <%= link_to '导出选课单', exports_path(user_id:current_user.id,type:'mycourse_list',format: :xlsx), :class => "btn btn-success" ,:style=>"float:right"%>
@@ -80,6 +84,15 @@
                     <% if @stu_course_list.length!=0&&!@stu_course_list[0].stu_confirm%>
                       <td><%= link_to "删除", quit_course_path(course), class: 'btn-sm btn-danger',:data => {confirm: '确定要删除此课程?'} %></td>
                     <% end %>        
+                  <% elsif admin_logged_in? %>
+                  <td><%= link_to "编辑", edit_course_url(course), class: 'btn btn-xs btn-info' %></td>
+                      <% if course.open? %>
+                          <td><%= link_to "关闭", close_course_url(course), class: 'btn btn-xs btn-info' %></td>
+                      <% else %>
+                          <td><%= link_to "开通", open_course_url(course), class: 'btn btn-xs btn-info' %></td>
+                      <% end %>
+                      <td><%= link_to "删除", course_path(course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
+                     
                   <% end %>
                 </tr>
             <% end %>

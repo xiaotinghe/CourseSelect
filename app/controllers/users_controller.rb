@@ -106,7 +106,7 @@ class UsersController < ApplicationController
     # Confirms a logged-in user.
     def teacher_logged_in
         unless teacher_logged_in?
-            redirect_to root_url, flash: {danger: '请登陆'}
+            redirect_to root_url, flash: {danger: '请登陆teacher_logged_in'}
         end
     end
 end

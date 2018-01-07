@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   before_action :student_logged_in, only: [:select, :quit, :list]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update, :open, :close]#add open by qiao
   before_action :logged_in, only: :index
-
+  before_action :admin_logged_in
   #-------------------------for teachers----------------------
 
   def new
@@ -232,7 +232,7 @@ class CoursesController < ApplicationController
 ##liupan修改student"已选课程"界面，统计学分
   def index
     @course=current_user.teaching_courses.order('id') if teacher_logged_in?
-    @course=current_user.teaching_courses.order('id') if admin_logged_in?
+    @course=Course.order('created_at DESC') if admin_logged_in?
     @course=current_user.courses.order('id') if student_logged_in?
     ##zm修改##待确认的选课单
     @stu_course_list=current_user.grades.order('id') if student_logged_in?
