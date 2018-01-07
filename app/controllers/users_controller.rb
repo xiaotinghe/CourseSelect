@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general?access_token=1')
         req = Net::HTTP::Post.new(uri)
         req.set_form_data('image' => base64)
-        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https',:open_timeout => 1) do |http|
             http.request(req)
         end
         case res
