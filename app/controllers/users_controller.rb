@@ -15,7 +15,7 @@ class UsersController < ApplicationController
         cache = ActiveSupport::Cache::MemoryStore.new
         cache.write(params[:uuid] + '_img', params[:base64])
         base64 = params[:base64].gsub("data:image/jpeg;base64,", "")
-        uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general?access_token=1')
+        uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general')
         req = Net::HTTP::Post.new(uri)
         req.set_form_data('image' => base64)
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https',:open_timeout => 1) do |http|
