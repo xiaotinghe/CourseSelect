@@ -1,6 +1,6 @@
 <%= form_for @user, html: {class: 'form-horizontal', role: 'form'} do |f| %>
     <%= render 'shared/error_messages', :object => @user %>
-    <img src="<%= @img %>"></img>
+    
     <div class="form-group">
       <%= f.label "姓名", class: 'col-sm-3 control-label' %>
       <div class="col-sm-9">
