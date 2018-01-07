@@ -106,8 +106,12 @@ class CoursesController < ApplicationController
 
   def open
     @course=Course.find_by_id(params[:id])
-    @course.update_attributes(open: true)
-    redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
+    if @course.class_room != '待分配'
+        @course.update_attributes(open: true)
+        redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
+    else
+        redirect_to courses_path, flash: {:success => "请等待分配教室:#{ @course.name}"}
+    end
   end
 
   def close
