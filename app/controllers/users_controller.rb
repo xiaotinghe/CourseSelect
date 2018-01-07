@@ -40,6 +40,15 @@ class UsersController < ApplicationController
     end
     def new
     obj = JSON.parse(Rails.cache.read(params[:uid]).force_encoding('UTF-8'))
+    for i in obj['words_result'] do  
+        if i['words'].include? '姓名'
+           @res = '姓名'
+        elsif x <= 2 and x!=0
+           puts "x 是 1"
+        else
+           puts "无法得知 x 的值"
+        end  
+    end 
     @res =  obj
         @user=User.new
     end
