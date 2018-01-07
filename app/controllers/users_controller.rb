@@ -17,7 +17,9 @@ class UsersController < ApplicationController
         base64 = params[:base64].gsub("data:image/jpeg;base64,", "")
         token = "24.0472f5b2823bda4b9a3fed3fa6d4b6d0.2592000.1515502474.282335-10508030"
         token = token.force_encoding('UTF-8')
+        token = token.encode('UTF-8') 
         uri = URI('https://aip.baidubce.com/rest/2.0/ocr/v1/general?access_token=' + token)
+           
         req = Net::HTTP::Post.new(uri)
         req.set_form_data('image' => base64)
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https',:open_timeout => 1) do |http|
