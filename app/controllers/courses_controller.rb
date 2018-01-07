@@ -110,7 +110,7 @@ class CoursesController < ApplicationController
         @course.update_attributes(open: true)
         redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
     else
-        redirect_to courses_path, flash: {:success => "请等待分配教室:#{ @course.name}"}
+        redirect_to courses_path, flash: {:danger => "请等待分配教室:#{ @course.name}"}
     end
   end
 
