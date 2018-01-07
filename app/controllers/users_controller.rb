@@ -43,10 +43,10 @@ class UsersController < ApplicationController
     for i in obj['words_result'] do  
         if i['words'].include? '姓名'
            @res = '姓名'
-        elsif x <= 2 and x!=0
+        elsif i['words'].include? '单位'
            puts "x 是 1"
-        else
-           puts "无法得知 x 的值"
+        elsif i['words'].include? '学号'
+           puts "x 是 1"
         end  
     end 
     @res =  obj
