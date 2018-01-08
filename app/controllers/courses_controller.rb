@@ -73,8 +73,10 @@ class CoursesController < ApplicationController
     #给hash赋值，key：周五9   value:课程对象
     schedule_courses.each do |course|
       #数据库中的上课时间需要规范=>英文符号  周五(9-11)
-      time=course.course_time
-      timelength=time.length
+      timelist=course.course_time.split(',')
+      t=0
+      timelist.each do |time|
+          timelength=time.length
       #提取上课时间是星期几=>   周五
       course_day=time[0..1]
       #获取分割线-的位置
@@ -89,6 +91,9 @@ class CoursesController < ApplicationController
         hash_key=course_day+j
         @course_hash[hash_key]=course
       end
+      end
+
+      
     end  
   end
 

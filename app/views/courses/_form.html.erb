@@ -1,4 +1,4 @@
-<%= form_for @course, html: {class: 'form-horizontal', role: 'form'} do |f| %>
+<%= form_for @course, html: {class: 'form-horizontal', role: 'form',onsubmit:'return checkvalidate()'} do |f| %>
     <%= render 'shared/error_messages', :object => @course %>
 
     <div class="form-group">
@@ -26,14 +26,14 @@
       <div class="col-sm-4">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <input type="text" class="form-control" placeholder="输入课时" id="class_period_obj" onchange="setCredit()" />  
+          <input type="text" class="form-control" placeholder="输入课时" id="class_period_obj"/>  
         </div>
       </div>
       <%= f.label "学分", class: 'col-sm-2 control-label' %>
       <div class="col-sm-3">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <select class="form-control" id="class_credit_obj" onchange="setCredit()">
+          <select class="form-control" id="class_credit_obj">
               <option value ="">请选择</option>
               <option value ="0.5">0.5</option>
               <option value ="1.0">1.0</option>
@@ -60,12 +60,13 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <%= f.label "上课时间", class: 'col-sm-2 control-label' %>
+    <div id="classTime">
+    <div class="form-group" name="sub_classTime">
+      <%= f.label "上课时间段", class: 'col-sm-2 control-label' %>
       <div class="col-sm-3">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-            <select class="form-control" id="course_day_obj" onchange="setCourseTime()">
+            <select class="form-control" name="course_day_obj" >
               <option value ="">请选择</option>
               <option value ="周一">周一</option>
               <option value ="周二">周二</option>
@@ -80,7 +81,7 @@
       <%= f.label "from", class: 'col-sm-1 control-label' %>
       <div class="col-sm-2">
         <div class="input-group">     
-            <select class="form-control" id="course_begin_obj" onchange="setCourseTime()">
+            <select class="form-control" name="course_begin_obj">
               <option value ="">节数</option>
               <option value ="1">1</option>
               <option value ="2">2</option>
@@ -99,7 +100,7 @@
       <%= f.label "to", class: 'col-sm-1 control-label' %>
       <div class="col-sm-2">
         <div class="input-group">        
-             <select class="form-control" id="course_end_obj" onchange="setCourseTime()">
+             <select class="form-control" name="course_end_obj">
               <option value ="">节数</option>
               <option value ="2">2</option>
               <option value ="3">3</option>
@@ -114,8 +115,16 @@
             </select>
         </div>
       </div>
+      <div class="btn" onclick="removeClassTime(this)"><span class="glyphicon glyphicon-remove"></span></div>
+    </div> 
     </div>
 
+    <div id="otherClassTime"></div>
+
+    <div class="form-group" style="margin-left: 150px">
+      <div class="btn btn-default" onclick="addClassTime()"><span class="glyphicon glyphicon-plus">添加上课时间段</span></div>
+    </div>
+    
     <div class="form-group">
       <%= f.label "授课方式", class: 'col-sm-2 control-label' %>
       <div class="col-sm-9">
@@ -177,12 +186,17 @@
     <script type="text/javascript">
       /////////////上课时间
       var time_Obj=document.getElementById('course_time_obj');
-      var day_Obj=document.getElementById('course_day_obj');
-      var begin_Obj=document.getElementById('course_begin_obj');
-      var end_Obj=document.getElementById('course_end_obj');
+      var day_Obj=document.getElementsByName('course_day_obj');
+      var begin_Obj=document.getElementsByName('course_begin_obj');
+      var end_Obj=document.getElementsByName('course_end_obj');
 
-      var course_time=time_Obj.value;
-      if (course_time.length!=0) {
+      var timelist=time_Obj.value.split(',');
+      var formhtml=$('#classTime').html();
+        
+      for (var i = 0; i < timelist.length; i++) {
+        var course_time=timelist[i];
+
+        if (course_time.length!=0) {
           //星期几
           var course_day=course_time.substring(0,2);
           var day_num;
@@ -199,12 +213,14 @@
       var begin_class=course_time.substring(3,split_index);
       //结束的上课节数 
       var end_class=course_time.substring(split_index+1,course_time.length-1);
-
+      if (i<timelist.length-1) {$('#otherClassTime').append(formhtml);}
       ///设置上课时间下拉框
-      day_Obj.options[day_num].selected=true; 
-      begin_Obj.options[begin_class].selected=true;
-      end_Obj.options[end_class-1].selected=true;      
+      day_Obj[i].options[day_num].selected=true; 
+      begin_Obj[i].options[begin_class].selected=true;
+      end_Obj[i].options[end_class-1].selected=true;      
       } ;
+
+      }   
 
       //////////////课时学分
       var period_Obj=document.getElementById('class_period_obj');
@@ -226,31 +242,41 @@
         period_Obj.value=period;
       }     
     </script>
-    <%= f.submit '提交', class: "btn btn-success btn-block"%>
+    <%= f.submit '提交', class: "btn btn-success btn-block",onclick:"setCourseTime()"%>
     <%= link_to '取消', courses_path, :class => "btn btn-default btn-block" %>
 <% end %>
 
 <script type="text/javascript">
-  //onchange事件
-  function setCourseTime(){
-    var day_Obj=document.getElementById('course_day_obj');
-    var begin_Obj=document.getElementById('course_begin_obj');
-    var end_Obj=document.getElementById('course_end_obj');
+  function checkvalidate(){
+    //时间
+    var day_Obj=document.getElementsByName('course_day_obj');
+    var begin_Obj=document.getElementsByName('course_begin_obj');
+    var end_Obj=document.getElementsByName('course_end_obj');
     var time_Obj=document.getElementById('course_time_obj');
-
-    var day=day_Obj.value;
-    var begin=begin_Obj.value;
-    var end=end_Obj.value;
-    var time;
-    if (day.length==0||begin.length==0||end.length==0) {
-      time="";
-    }else{
-      time=day+'('+begin+'-'+end+')';
+    var time="";
+    for (var i = 0; i < day_Obj.length; i++) {
+      var day=day_Obj[i].value;
+      var begin=begin_Obj[i].value;
+      var end=end_Obj[i].value; 
+      if (day.length==0||begin.length==0||end.length==0) {
+        alert("请填写上课时间");
+        return false;
+      }else{
+        if (i==day_Obj.length-1) {
+         time+=day+'('+begin+'-'+end+')';
+         if (day==day_Obj[i-1].value) {
+            alert("请选择不同日期的上课时间段");
+            return false;
+         }
+        }else{
+         time+=day+'('+begin+'-'+end+'),';
+        } 
+      }      
     }
     time_Obj.value=time;
-  }
+    
 
-  function setCredit(){
+    //学分
     var set_period_Obj=document.getElementById('class_period_obj');
     var set_credit_Obj=document.getElementById('class_credit_obj');
     var set_credit_period_Obj=document.getElementById('credit_obj');
@@ -264,6 +290,39 @@
       all_period_credit=set_period+'/'+set_credit;
     }
     set_credit_period_Obj.value=all_period_credit;
+
+    if (time_Obj.value.length!=0&&set_credit_period_Obj.value.length!=0) {return true;}
+    else{alert("请填写完整课程信息");return false;}
   }
+ 
+
+  function addClassTime(){
+    var firstClassTime=$('#classTime').html().length;
+    var secondClassTime=$('#otherClassTime').html().length;
+    if ((firstClassTime>1000&&secondClassTime>1000)||secondClassTime>4000) {
+        alert("一星期只能有两个上课时间段");
+    }else{
+        var formhtml="";
+      if (firstClassTime>1000) {
+        formhtml=$('#classTime').html();
+      }else{
+        formhtml=$('#otherClassTime').html();
+      }
+      $('#otherClassTime').append(formhtml);
+    }
+  }
+
+  function removeClassTime(buttonObj){    
+     var sub_time_Obj=$("[name='sub_classTime']");
+     var len=sub_time_Obj.length-1;
+     if (len==0) {
+       alert("请至少选择一个时间段");
+     }else{
+       var parentdom=buttonObj.parentNode;
+       parentdom.remove();
+     }  
+      
+  }
+
 </script>
 
