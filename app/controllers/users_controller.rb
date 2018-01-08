@@ -62,7 +62,9 @@ class UsersController < ApplicationController
             end  
         end 
         @img = Rails.cache.read(params[:uid] + '_img')
+        
         @user1=User.where(:department => @department).select("id, name")
+        @user1 = @user1.attributes.dup
         @user=User.new
     end
     def create
