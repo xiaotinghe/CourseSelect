@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     end
     def mobile
         @uuid = params[:uid]
-        render layout:  "mobile"
+        render layout:  "users/mobile.html.erb"
     end
     def checked
         if Rails.cache.read(params[:uid])
