@@ -99,7 +99,7 @@ class UsersController < ApplicationController
     #----------------------------------- students function--------------------
     private
     def user_params
-        params.require(:user).permit(:name, :email, :major, :department, :password,
+        params.require(:user).permit(:name, :email, :major, :department, :password, :supervisor, :num,
             :password_confirmation)
     end
     # Confirms a logged-in user.
