@@ -11,6 +11,9 @@ class UsersController < ApplicationController
         @uuid = params[:uid]
         render layout: "mobile"
     end
+    def mobileSuccess
+        render layout: "mobileSuccess"
+    end
     def checked
         if Rails.cache.read(params[:uid])
             render :json => {:result => 'success'}.to_json 

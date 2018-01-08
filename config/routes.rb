@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       collection do
         get :reg
         get :mobile
+        get :mobileSuccess
         post :checked
       end
   end
