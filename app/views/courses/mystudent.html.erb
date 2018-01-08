@@ -22,7 +22,7 @@
               <th>专业</th>
               <th>培养单位</th>
               <th>已选课程数</th>
-              <th>操作</th>
+              <th>查看</th>
             </tr>
             </thead>
             <tbody>
@@ -35,8 +35,8 @@
                   <td><%= student.department %></td>
                   <td><%= student.courses.length %></td>
                   
-                  <td><%= link_to "查看选课单", stuCourseList_course_path(stu_id:student.id),:class => "btn btn-success btn-xs" %></td>
-                  <td><%= link_to "查看课程表", schedule_course_path(schID:student.id),:class => "btn btn-info btn-xs" %></td>
+                  <td><%= link_to "选课列表", stuCourseList_course_path(stu_id:student.id),:class => "btn btn-success btn-xs" %></td>
+                  <td><%= link_to "星期课程表", schedule_course_path(schID:student.id),:class => "btn btn-info btn-xs" %></td>
                 </tr>
             <% end %>
             </tbody>

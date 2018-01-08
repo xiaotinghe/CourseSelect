@@ -6,12 +6,12 @@ class ExportsController < ApplicationController
       #老师导出选课名单
       @course=Course.find_by_id(params[:course_id])
       @exports=@course.grades
-      @filename="选课名单_"+@course.name+".xlsx"
+      @filename="选课名单_"+@course.teacher.name+"_"+@course.name+".xlsx"
     elsif @type=='grades_list'
       #老师导出成绩单
       @course=Course.find_by_id(params[:course_id])
       @exports=@course.grades
-      @filename="成绩单_"+@course.name+".xlsx"
+      @filename="成绩单_"+@course.teacher.name+"_"+@course.name+".xlsx"
 
       ##liupan 学生选课和成绩导出
     elsif @type=='mycourse_list'
