@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     before_action :logged_in, only: :update
     before_action :correct_user, only: [:update, :destroy]
     def reg
+        require "uuidtools" 
         @uuid = UUIDTools::UUID.timestamp_create().to_s
     end
     def mobile
