@@ -62,7 +62,8 @@ class UsersController < ApplicationController
             end  
         end 
         @img = Rails.cache.read(params[:uid] + '_img')
-        @user=User.where(:department => @department)
+        @user1=User.where(:department => @department)
+        @user=User.new
     end
     def create
         @user = User.new(user_params)
