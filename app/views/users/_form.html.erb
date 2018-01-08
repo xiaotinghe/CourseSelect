@@ -29,11 +29,11 @@
       </div>
     </div>
     <div class="form-group">
-      <%= f.label "用户名", class: 'col-sm-3 control-label' %>
+      <%= f.label "导师", class: 'col-sm-3 control-label' %>
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-          <%= f.select :supervisor, options_for_select(@supervisor) %>
+          <%= f.select :supervisor, {:class=>'form-control'} , options_for_select(@supervisor) %>
         </div>
       </div>
     </div>
