@@ -2,6 +2,7 @@ class UsersController < ApplicationController
     cache = ActiveSupport::Cache::MemoryStore.new
     before_action :logged_in, only: :update
     before_action :correct_user, only: [:update, :destroy]
+    protect_from_forgery :except => :mobileUpload
     def reg
         require 'uuidtools'
         @uuid = UUIDTools::UUID.timestamp_create().to_s
