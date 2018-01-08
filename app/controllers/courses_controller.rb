@@ -25,7 +25,9 @@ class CoursesController < ApplicationController
   end
 
   def update
+  
     @course = Course.find_by_id(params[:id])
+    #Course.where(:supervisor => course_params['class_room'])
     if @course.update_attributes(course_params)
       flash={:info => "更新成功"}
     else
