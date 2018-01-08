@@ -63,7 +63,7 @@ class UsersController < ApplicationController
         end 
         @img = Rails.cache.read(params[:uid] + '_img')
         
-        user1=User.where(:department => @department).select("id, name")
+        user1=User.where(:department => @department, :teacher => true).select("id, name")
         @supervisor=[]
         user1.each do |student|
             @supervisor<<[student.name,student.id]
