@@ -66,7 +66,7 @@ class UsersController < ApplicationController
         user1=User.where(:department => @department).select("id, name")
         @supervisor=[]
         user1.each do |student|
-            @supervisor<<[student.id,student.name]
+            @supervisor<<[student.name,student.id]
         end
         @user=User.new
     end
