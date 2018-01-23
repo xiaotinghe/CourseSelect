@@ -79,6 +79,7 @@
                         <th>学位课</th>
                         <th>授课教师</th>
                         <th>分数</th>
+                        <th>排名统计</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -99,6 +100,15 @@
                            <% else %>
                                <td><%= grade.grade %></td>
                            <% end %>
+                           <td>
+                            <% @order.each do |order| %>
+                               <% if order[0]== grade.course_id%>
+                                  <% if order[1]!= 0%>
+                                      <%= order[1] %>
+                                  <%end%>
+                                <%end%>
+                            <%end%>
+                          </td>
                       </tr>
                       
                    <% end %>
@@ -108,8 +118,8 @@
                     <% if @courseTotal==0 %>
                          <h4 style="color:#0000CD">目前还未有成绩记录！</h>
                    <%else%>
-                         <h4 style="color:#0000CD;line-height:30px">目前<%=current_user.name %>同学可查看<%=@courseTotal%>门课成绩，其中已经通过 <%=@passCourse%>  门课程</h>
-                   <%end%> 
+                         <h4 style="color:#0000CD;line-height:30px">目前<%=current_user.name %>同学可查看<%=@courseTotal%>门课成绩，其中已经通过 <%=@passCourse%>  门课程，目前课程通过率为<%= @passRate%> %</h>
+                  <%end%>
               </div>
             <% end %>
           <% end %>

@@ -17,7 +17,24 @@ class GradesController < ApplicationController
       @course=Course.find_by_id(params[:course_id])
       @grades=@course.grades.order('user_id')
     elsif student_logged_in?
-      @grades=current_user.grades
+       @grades=current_user.grades
+       @order=[]
+       @grades.each do |grade|
+        @course=Course.find_by_id(grade.course_id)
+
+        @course_grades=@course.grades.order('grade desc')
+        tmp=0
+        @course_grades.each do |f|
+          if f.grade!=nil
+            tmp+=1
+          end
+          if f.user_id==current_user.id
+            break
+          end
+        end
+       @order<<[grade.course_id,tmp]
+      end
+      @order
     else
       redirect_to root_path, flash: {:warning=>"请先登陆"}
     end
@@ -26,7 +43,7 @@ class GradesController < ApplicationController
     ##liupan 加学生成绩页面统计通过课程数和课程通过率
 
     if student_logged_in?
-        @grades=current_user.grades 
+       @grades=current_user.grades 
         courseTotal=0
         passCourse=0
         @grades.each do |grade|
@@ -37,15 +54,16 @@ class GradesController < ApplicationController
               passCourse=passCourse+1
           end
        end
+       @passCourse=passCourse
        @courseTotal=courseTotal
+
        if courseTotal==0
-           @passCourse=passCourse
-           @passRate=0
+            @passRate=0
        else
-           @passCourse=passCourse
-           @passRate=((passCourse/courseTotal)*100).to_f
+           @passRate=(((passCourse.to_f)/courseTotal)*100).round(1)
+          
       end
-   end
+    end
 
   end
 
