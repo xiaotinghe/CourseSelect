@@ -3,38 +3,114 @@
 ### [中文教程1](http://blog.csdn.net/ppp8300885/article/details/52594839) [中文教程2](http://blog.csdn.net/ppp8300885/article/details/52601560) [中文教程3](http://blog.csdn.net/ppp8300885/article/details/52669749)
 
 
-这个样本系统是基于国科大研究生课程 (高级软件工程) 开发的项目,目的是帮助入门者学习RoR (Ruby on Rails) 
+这个样本系统是基于国科大研究生课程 (高级软件工程) 开发的项目([演示Demo戳这里](http://courseselect.examant.com/ ))
 
-适合新学者的入手的第一个项目 ([演示Demo戳这里](https://courseselect.herokuapp.com/ ))，入门者可以在这个样本系统上增加更多的功能:
 
-* 处理选课冲突、控制选课人数
-* 统计选课学分，学位课等
-* 增加选课的开放、关闭功能
-* 自定义管理员后台
-* 基于OAuth的授权登陆
-* Excel格式的数据导入
-* 绑定用户邮箱（实现注册激活，忘记密码等）
-* 站内查找检索 （课程按分类查找，过滤等）
-
-### 目前功能：
-
+##  一.项目描述
+### 1.1 项目原有功能：
 * 多角色登陆（学生，老师，管理员）
 * 学生动态选课，退课
 * 老师动态增加，删除课程
 * 老师对课程下的学生添加、修改成绩
 * 权限控制：老师和学生只能看到自己相关课程信息
 
-### 截图
+### 1.2 项目新增功能
+  在项目原有功能的基础上，针对学生、教师、管理员三个角色，按照角色进行分工协作，完善新增了如下功能：
+#### 1.2.1学生角色：
+。。。。。。。。。。。
+。。。。。。。
+。。。。。。。。。。。。
+#### 1.2.2.教师角色：
+<img src="/lib/teacher/01.png" width="700">
+ 
+（1） 课程信息模块：
+查询全校课程、查看课程详情、创建课程逻辑修改、查看星期课程表
+（2） 成绩信息模块：
+导出Excel格式的成绩单和选课名单、成绩更新时自动邮件通知学生
+（3） 学生信息模块：
+针对导师身份设计，导师查看指导学生的选课信息、审核学生的选课单
+#### 1.2.3.管理员角色：
+。。。。。。
+。。。。。。。。。
+。。。。。。。
+### 1.3 成员分工
+为了最大程度的实现协同开发，按照系统的角色来分工。
+(1).  何孝霆负责管理员相关功能的开发与测试，负责项目部署
+(2).  刘攀负责学生相关功能的开发与测试
+(3).  张咪负责教师相关功能的开发与测试
+小组成员使用github协同开发，各自编写测试用例，单元测试通过后，再进行项目整合后的系统测试，最终部署到阿里云上。
+## 二.项目功能说明
+###2.1学生角色
+……………..
+###2.2教师角色
+####2.2.1课程信息
+1.  课程查询
+教师和学生都能点击导航栏中“全校课程”，以多种条件模糊检索全校课程，点击课程名称能查看课程详情。
+2.  创建课程
+教师能在导航栏中点击“新增课程”来创建新课程，只需输入上课时间段，提交管理员审核，统一分配教室。
+并且，将易错信息改为下拉框的形式，创建的课程一个星期最多能有两个时间段，且两个时间段不能是同一天。
+<img src="/lib/teacher/02.png" width="700">
+ 
+3.  查看课程表
+教师能在导航栏中点击“我的课程表”，以星期网格的形式查看自己的授课课程表，点击课程名称能查看课程详情。
+<img src="/lib/teacher/03.png" width="700">
+ 
+####2.2.2成绩管理
+1.  导出excel成绩单和选课名单
+教师点击“成绩信息”中相应的课程，能查看该课程的选课名单。
+点击右上角的“导出成绩单”和“导出选课名单”按钮，可以导出相应课程的excel名单，文件名称以“名单类型_教师姓名_课程名称”命名，如“成绩单_谢高岗_计算机网络.xlsx”。
+ <img src="/lib/teacher/04.png" width="700">
 
-<img src="/lib/screenshot1.png" width="700">  
+ <img src="/lib/teacher/05.png" width="700">
+ 
+2.  成绩邮件提醒
+当教师在成绩管理页面录入学生的成绩后，系统可以自动向学生绑定的邮箱发送提醒邮件，提醒学生可以查看成绩了。(注：由于阿里云服务器的限制，无法使用自己的私人邮箱发送SMTP邮件，但在heroku上和本地都可以发送成功)
 
-<img src="/lib/screenshot2.png" width="700">
+<img src="/lib/teacher/06.png" width="700">
+ 
+####2.2.3学生管理
+1.  查看学生选课信息
+  导师点击导航栏中的“学生信息”，能以选课列表和课程表两种形式，查看自己指导学生的选课信息。
 
-<img src="/lib/screenshot3.png" width="700">   
+ <img src="/lib/teacher/07.png" width="700">
 
-<img src="/lib/screenshot4.png" width="700">
+ <img src="/lib/teacher/08.png" width="700">
 
-## 说明
+2.  审核学生选课单
+学生和导师配合完成在系统中“学生一键确认选课，导师一键审核选课”。
+学生在“已选课程”中确认选课单，学生点击“确认选课单”按钮确认选课，在导师审核前还可以取消确认，取消确认后才能再变更课程。
+
+  <img src="/lib/teacher/09.png" width="700">
+
+ <img src="/lib/teacher/10.png" width="700">
+ 
+  导师在“学生管理”中点击某学生的“选课列表”，审核学生的选课单。
+
+  <img src="/lib/teacher/11.png" width="700">
+
+ <img src="/lib/teacher/12.png" width="700"> 
+
+ 
+  至此，学生页面显示导师已经审核选课，学生将无法再取消确认，也无法在系统中自行变更课程。
+
+ <img src="/lib/teacher/13.png" width="700">
+ 
+###2.3管理员角色
+
+。。。。。
+。。。。。。。。
+。。。。。。。。。。。
+。。。。。。。。
+## 三．项目部署说明
+
+。。。。。
+。。。。。。
+。。。。。
+。。。。。。
+
+
+
+### 说明
 
 目前使用的库和数据库：
 
@@ -47,7 +123,7 @@
 请根据本地系统下载安装[postgresql](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)数据库，并运行`psql -h localhost`检查安装情况。
 
 
-## 在本地机部署方法
+### 在本地机部署方法
 
 在终端（MacOS或Linux）中执行以下代码。
 
@@ -63,7 +139,7 @@ $ rake db:seed
 $ rails s 
 ```
 
-## 安装正常后的使用方法
+### 安装正常后的使用方法
 
 在浏览器中输入`localhost:3000`访问应用系统主页
 
@@ -89,7 +165,7 @@ $ rails s
 账号中数字都可以替换成2,3...等等
 
 
-## 在 Heroku 云端部署方法
+### 在 Heroku 云端部署方法
 
 项目可直接在Heroku上免费部署
 
@@ -106,7 +182,7 @@ $ rails s
 6.运行部署，详情[请戳这里](https://devcenter.heroku.com/articles/getting-started-with-rails4#rails-asset-pipeline)
 
 
-## 在本地测试方法
+### 在本地测试方法
 
 本项目包含了部分的测试（integration/fixture/model test），测试文件位于/test目录下。
 在一键运行所有测试使用`rake test`命令之前，一定检测是否用命令 postgres -D /usr/local/var/postgres/ 启动数据库系统，并且执行过命令：createdb courseselect_test 创建选课系统应用测试数据库。
@@ -123,7 +199,7 @@ Finished in 1.202169s, 7.4865 runs/s, 16.6366 assertions/s.
 9 runs, 20 assertions, 0 failures, 0 errors, 0 skips
 ```
 
-### 模型测试
+#### 模型测试
 
 以用户模型为例, 位于`test/models/user_test.rb`, 首先生成一个`@user`对象，然后`assert`用户是否有效，这里的调用`valid`方法会去检查你的模型中的相关的`validates`语句是否正确，若`@user.valid?`为false, 那么此`assert`会报错，代表`"should be valid"`这条测试没有通过, 单独运行此测试文件使用`rake test test/models/user_test.rb`
 
@@ -147,7 +223,7 @@ class UserTest < ActiveSupport::TestCase
 end
 ```
 
-### 视图和控制器测试
+#### 视图和控制器测试
 
 以用户登录为例，位于`test/integration/user_login_test.rb`，首先同样生成一个@user模型，这个@user的用户名和密码可以在`test/fixtures/users.yml`中指定, 然后我们用get方法到达登录页面（sessions_login_path），然后使用post方法提交这个@user的账号密码来登录，如果登录成功，当前应该会跳转至homes控制器下的index方法进行处理，`assert_redirected_to`能判断这个跳转过程是否发生，然后调用`follow_redirect！`来紧跟当前的跳转，用`assert_template`来判读跳转后的视图文件是否为`homes/index`, 最后在这个视图文件下做一些测试，比如判断这个视图下连接为root_path的个数等等（根据当前登录的角色不同，当前的页面链接会不同，比如admin用户就会有控制面板的链接rails_admin_path，而普通用户没有，因此可以根据链接的个数来判断当前登录用户的角色）
 
