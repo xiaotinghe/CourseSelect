@@ -53,9 +53,15 @@
 针对导师身份设计，导师查看指导学生的选课信息、审核学生的选课单
 
 #### 1.2.3 管理员角色：
-。。。。。。
-。。。。。。。。。
-。。。。。。。
+
+（1） 课程管理模块
+
+编号分配、教室分配、选课人数限制、课程启停
+
+（2） 注册流程改进
+
+扫码上传、信息识别、导师选择
+
 ### 1.3 成员分工
 
 为了最大程度的实现协同开发，按照系统的角色来分工。
@@ -70,12 +76,21 @@
 
 
 ## 二．项目部署说明
+使用前需要安装Bundler，Gem，Ruby，Rails等依赖环境。
 
-。。。。。
-。。。。。。
-。。。。。
-。。。。。。
-
+请根据本地系统下载安装[postgresql](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)数据库，并运行`psql -h localhost`检查安装情况。
+并开启用户名密码方式登录，用户名密码均为postgres
+服务端采用apache+passenger方式部署
+$ git clone https://github.com/PENGZhaoqing/CourseSelect
+$ cd CourseSelect
+然后修改config/database.yml，加入如下字段：
+  username: postgres
+  password: postgres
+执行
+$ bundle install
+$ rake db:migrate
+$ rake db:seed
+重启apache服务器,system httpd restart
 
 ## 三.项目功能说明
 
@@ -201,13 +216,27 @@
  
 ### 3.3 管理员角色
 
-。。。。。
-。。。。。。。。
-。。。。。。。。。。。
-。。。。。。。。
+#### 3.3.1 课程管理
 
+1. 查看所有课程
+管理员登录后，点击课程管理，进入课程列表
 
-#后面这些说明要不要删掉啊？？？？大佬看着写
+2.编号分配、教室分配、选课人数限制
+点击对应课程后的“编辑”按钮，进入修改页面。在管理员分配完编号、教室、人数前，教师无法开通课程。
+
+3.课程启停
+在课程列表页，点击对应课程后的“开通”/“关闭”按钮，即可开通或者关闭这一课程
+
+#### 3.3.2 注册流程改进
+
+1. 扫码上传
+打开注册页后，页面显示一个二维码，使用手机扫码进入上传页面。
+
+上传完毕后，会显示验证完毕。
+
+2. 信息识别、导师选择
+此时网页端会自动跳转到信息确认页面。补充完善信息，选择自己培养单位的一位老师作为导师。点击注册，即可完成注册
+
 
 
 ### 说明
@@ -221,23 +250,6 @@
 使用前需要安装Bundler，Gem，Ruby，Rails等依赖环境。
 
 请根据本地系统下载安装[postgresql](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)数据库，并运行`psql -h localhost`检查安装情况。
-
-
-### 在本地机部署方法
-
-在终端（MacOS或Linux）中执行以下代码。
-
-注意：在执行下面代码之前，请确认数据库系统（PostgreSQL)已经在本地安装好，用命令 postgres -D /usr/local/var/postgres/ 启动数据库系统，并且用命令：createdb courseselect_development 创建选课系统应用数据库。在bundle install 时，一定是链接外网，若
-是MacOS, 还要执行命令：sudo xcodebuild -license， 输入agree授权Apple xcodebuild 软件进行编译。
-
-```
-$ git clone https://github.com/PENGZhaoqing/CourseSelect
-$ cd CourseSelect
-$ bundle install
-$ rake db:migrate
-$ rake db:seed
-$ rails s 
-```
 
 ### 安装正常后的使用方法
 
@@ -264,40 +276,6 @@ $ rails s
 
 账号中数字都可以替换成2,3...等等
 
-
-### 在 Heroku 云端部署方法
-
-项目可直接在Heroku上免费部署
-
-1.fork此项目到自己Github账号下
-
-2.创建Heroku账号以及Heroku app
-
-3.将Heroku app与自己Github下的fork的项目进行连接
-
-4.下载配置[Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)命令行工具
-
-5.运行`heroku login`在终端登陆，检查与heroku app的远程连接情况`git config --list | grep heroku`，若未检查到相应的app，请看[这里](http://stackoverflow.com/questions/5129598/how-to-link-a-folder-with-an-existing-heroku-app)
-
-6.运行部署，详情[请戳这里](https://devcenter.heroku.com/articles/getting-started-with-rails4#rails-asset-pipeline)
-
-
-### 在本地测试方法
-
-本项目包含了部分的测试（integration/fixture/model test），测试文件位于/test目录下。
-在一键运行所有测试使用`rake test`命令之前，一定检测是否用命令 postgres -D /usr/local/var/postgres/ 启动数据库系统，并且执行过命令：createdb courseselect_test 创建选课系统应用测试数据库。
-
-```
-PENG-MacBook-Pro:IMS_sample PENG-mac$ rake test
-Run options: --seed 15794
-
-# Running:
-.........
-
-Finished in 1.202169s, 7.4865 runs/s, 16.6366 assertions/s.
-
-9 runs, 20 assertions, 0 failures, 0 errors, 0 skips
-```
 
 #### 模型测试
 
@@ -402,13 +380,4 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database courseselect_test;' -U postgres
 ```
-
-## How to Contribute
-
-先fork此项目，在分支修改后，pull request到主分支
-
-提问请到issues里创建，欢迎contributor！
-
-如果觉得好，给项目点颗星吧～
-
 
