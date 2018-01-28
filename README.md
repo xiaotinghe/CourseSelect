@@ -103,11 +103,14 @@
 #### 3.1.2 我的课程
 
 1.  查看已选课程，统计学位课学分
-<img src="/lib/student/shot5.png" width="900">
-2.  点击“导出选课单”导出Excel格式的选课单
-<img src="/lib/student/shot6.PNG" width="800">
-3.  查询课程表
 
+<img src="/lib/student/shot5.png" width="900">
+
+2.  点击“导出选课单”导出Excel格式的选课单
+
+<img src="/lib/student/shot6.PNG" width="800">
+
+3.  查询课程表
  根据已选课程，显示星期课程表
 
 #### 3.1.3 我的成绩
