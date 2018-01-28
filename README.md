@@ -22,7 +22,7 @@
 
 #### 1.2.1 学生角色
 
-<img src="/lib/student/shot1.png" width="1000">
+<img src="/lib/student/shot1.png" width="1200">
 
 （1） 选修课程模块
 
@@ -93,19 +93,19 @@
 
 选修课程时，增加学位课属性
 
-<img src="/lib/student/shot3.png" width="800">
+<img src="/lib/student/shot3.png" width="1000">
 
 3.  处理选课冲突
 
 不允许选择课程名相同和上课时间交叉的课程
 
-<img src="/lib/student/shot4.png" width="800">
+<img src="/lib/student/shot4.png" width="1000">
 
 #### 3.1.2 我的课程
 
 1.  查看已选课程，统计学位课学分
 
-<img src="/lib/student/shot5.png" width="800">
+<img src="/lib/student/shot5.png" width="1000">
 
 2.  点击“导出选课单”导出Excel格式的选课单
 
