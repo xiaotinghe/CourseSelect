@@ -22,7 +22,7 @@
 
 #### 1.2.1 学生角色
 
-<img src="/lib/student/shot1.png" width="900">
+<img src="/lib/student/shot1.png" width="1000">
 
 （1） 选修课程模块
 
@@ -109,7 +109,7 @@
 
 2.  点击“导出选课单”导出Excel格式的选课单
 
-<img src="/lib/student/shot6.png" width="800">
+<img src="/lib/student/shot6.PNG" width="800">
 
 3.  查询课程表
 
