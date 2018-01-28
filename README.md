@@ -22,7 +22,7 @@
 
 #### 1.2.1 学生角色
 
-<img src="/lib/student/shot1.png" width="1200">
+<img src="/lib/student/shot1.png" width="900">
 
 （1） 选修课程模块
 
@@ -105,7 +105,7 @@
 
 1.  查看已选课程，统计学位课学分
 
-<img src="/lib/student/shot5.png" width="1000">
+<img src="/lib/student/shot5.png" width="900">
 
 2.  点击“导出选课单”导出Excel格式的选课单
 
@@ -124,7 +124,7 @@
   
   统计分析课程率通过率
   
-<img src="/lib/student/shot7.png" width="800">
+<img src="/lib/student/shot7.png" width="900">
 
 2.  点击“导出成绩单”导出Excel格式的成绩单
 
