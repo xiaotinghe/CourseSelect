@@ -22,7 +22,7 @@
 
 #### 1.2.1 学生角色
 
-<img src="/lib/student/shot1.png" width="500">
+<img src="/lib/student/shot1.png" width="900">
 
 （1） 选修课程模块
 
@@ -87,13 +87,13 @@
 
 学生点击导航栏中“全校课程”，以课程名称、课程类型和主讲教师作为条件模糊检索全校课程，点击课程名称能查看课程详情
 
-<img src="/lib/student/shot2.png" width="500">
+<img src="/lib/student/shot2.png" width="800">
 
 2.  选择课程
 
 选修课程时，增加学位课属性
 
-<img src="/lib/student/shot3.png" width="600">
+<img src="/lib/student/shot3.png" width="800">
 
 3.  处理选课冲突
 
@@ -105,7 +105,7 @@
 
 1.  查看已选课程，统计学位课学分
 
-<img src="/lib/student/shot5.png" width="600">
+<img src="/lib/student/shot5.png" width="800">
 
 2.  点击“导出选课单”导出Excel格式的选课单
 
